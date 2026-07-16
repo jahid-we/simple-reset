@@ -1,80 +1,121 @@
-=== Simple Reset ===
-Contributors: jahid-we
-Tags: reset, cleanup, delete, tools, maintenance
-Requires at least: 5.8
-Tested up to: 6.9
-Requires PHP: 8.0
-Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+# Simple Reset
 
-A lightweight and secure WordPress reset plugin to quickly clean your website by removing posts, pages, media, comments, users, categories, tags, and more.
+A lightweight and secure WordPress plugin to quickly clean your website by deleting posts, pages, media, comments, users, categories, tags, and more.
 
-== Description ==
+---
 
-Simple Reset helps you quickly clean your WordPress website with a modern and user-friendly interface.
+## ✨ Features
 
-Features include:
+- 📝 Delete All Posts
+- 📄 Delete All Pages
+- 🖼️ Delete All Media
+- 💬 Delete All Comments
+- 📂 Delete All Categories _(Default category is preserved)_
+- 🏷️ Delete All Tags
+- 👤 Delete All Users _(Current administrator is protected)_
+- 📊 Live Dashboard Statistics
+- ⚠️ Confirmation Modal before destructive actions
+- 🔒 Nonce Verification & Permission Checks
+- 🎨 Modern & Clean WordPress Admin UI
 
-- Delete all posts
-- Delete all pages
-- Delete all media files
-- Delete all comments
-- Delete all categories (default category is preserved)
-- Delete all tags
-- Delete all users (current administrator is protected)
-- Confirmation modal before destructive actions
-- Dashboard with live statistics
-- Secure nonce verification
-- WordPress coding standards
+---
 
-Perfect for developers, designers, testers, and anyone working with staging or development websites.
+## 📸 Screenshots
 
-== Installation ==
+> Add your screenshots here.
 
-1. Upload the plugin to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the **Plugins** screen in WordPress.
-3. Go to **Reset → Dashboard**.
-4. Open **Reset Tools** and choose the content you want to remove.
+| Dashboard                          | Reset Tools                            |
+| ---------------------------------- | -------------------------------------- |
+| ![Dashboard](assets/dashboard.png) | ![Reset Tools](assets/reset-tools.png) |
 
-== Frequently Asked Questions ==
+---
 
-= Will this plugin delete my administrator account? =
+## 🚀 Installation
 
-No. The current administrator account is always protected.
+1. Download or clone this repository.
+2. Upload the `simple-reset` folder to:
 
-= Can the default WordPress category be deleted? =
+```
+wp-content/plugins/
+```
 
-No. The default category is preserved automatically.
+3. Activate **Simple Reset** from the Plugins page.
+4. Navigate to:
 
-= Can deleted content be recovered? =
+```
+Dashboard → Reset
+```
 
-No. All reset actions permanently delete content. Please create a backup before using this plugin.
+---
 
-== Screenshots ==
+## ⚠️ Important
 
-1. Dashboard
-2. Reset Tools
-3. Confirmation Modal
+This plugin permanently deletes content.
 
-== Changelog ==
+Always create a backup before performing any reset operation.
 
-= 1.0.0 =
+The following items are protected:
 
-- Initial release.
-- Delete Posts.
-- Delete Pages.
-- Delete Media.
-- Delete Comments.
-- Delete Categories.
-- Delete Tags.
-- Delete Users.
-- Live statistics dashboard.
-- Confirmation modal.
-- Modern admin interface.
+- Current logged-in administrator
+- Default WordPress category
 
-== Upgrade Notice ==
+---
 
-= 1.0.0 =
+## 🛠️ Requirements
 
-Initial release of Simple Reset.
+| Requirement | Version |
+| ----------- | ------- |
+| WordPress   | 5.8+    |
+| PHP         | 8.0+    |
+
+---
+
+## 📋 Current Features
+
+- Delete Posts
+- Delete Pages
+- Delete Media
+- Delete Comments
+- Delete Categories
+- Delete Tags
+- Delete Users
+- Dashboard Statistics
+- Confirmation Modal
+
+---
+
+## 🚧 Roadmap
+
+Upcoming features:
+
+- Delete Menus
+- Delete Widgets
+- Delete Custom Post Types
+- Delete WooCommerce Products
+- Reset WordPress Options
+- Database Optimization
+- Reset Logs
+- One-Click Full Site Reset
+- Multisite Support
+
+---
+
+## 👨‍💻 Developer
+
+**Jahid Hasan**
+
+GitHub: https://github.com/jahid-we
+
+---
+
+## 📄 License
+
+This project is licensed under the GPL v2 or later License.
+
+See the LICENSE file for details.
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub.
