@@ -16,17 +16,17 @@ Simple Reset helps you quickly clean your WordPress website with a modern and us
 
 Features include:
 
-* Delete all posts
-* Delete all pages
-* Delete all media files
-* Delete all comments
-* Delete all categories (default category is preserved)
-* Delete all tags
-* Delete all users (current administrator is protected)
-* Confirmation modal before destructive actions
-* Dashboard with live statistics
-* Secure nonce verification
-* WordPress coding standards
+- Delete all posts
+- Delete all pages
+- Delete all media files
+- Delete all comments
+- Delete all categories (default category is preserved)
+- Delete all tags
+- Delete all users (current administrator is protected)
+- Confirmation modal before destructive actions
+- Dashboard with live statistics
+- Secure nonce verification
+- WordPress coding standards
 
 Perfect for developers, designers, testers, and anyone working with staging or development websites.
 
@@ -61,17 +61,17 @@ No. All reset actions permanently delete content. Please create a backup before 
 
 = 1.0.0 =
 
-* Initial release.
-* Delete Posts.
-* Delete Pages.
-* Delete Media.
-* Delete Comments.
-* Delete Categories.
-* Delete Tags.
-* Delete Users.
-* Live statistics dashboard.
-* Confirmation modal.
-* Modern admin interface.
+- Initial release.
+- Delete Posts.
+- Delete Pages.
+- Delete Media.
+- Delete Comments.
+- Delete Categories.
+- Delete Tags.
+- Delete Users.
+- Live statistics dashboard.
+- Confirmation modal.
+- Modern admin interface.
 
 == Upgrade Notice ==
 
