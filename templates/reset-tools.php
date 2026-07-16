@@ -47,6 +47,11 @@ $total_items = array_sum( array_map( 'intval', $counts ) );
         </div>
         <div class="sr-stats-bar__divider"></div>
         <div class="sr-stats-bar__item">
+            <span class="sr-stats-bar__num sr-stats-bar__num--red"><?php echo number_format( $counts['users'] ); ?></span>
+            <span class="sr-stats-bar__label">Users</span>
+        </div>
+        <div class="sr-stats-bar__divider"></div>
+        <div class="sr-stats-bar__item">
             <span class="sr-stats-bar__num sr-stats-bar__num--red"><?php echo number_format( $counts['posts'] ); ?></span>
             <span class="sr-stats-bar__label">Posts</span>
         </div>
@@ -247,6 +252,38 @@ $total_items = array_sum( array_map( 'intval', $counts ) );
                     <button type="submit" name="sr_delete_tags" value="1" class="sr-btn sr-btn--danger sr-delete-trigger"<?php echo 0 === $counts['tags'] ? ' disabled title="Nothing to delete"' : ''; ?>>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
                         <?php echo 0 === $counts['tags'] ? 'Nothing to Delete' : 'Delete All Tags'; ?>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- Delete Users -->
+        <div class="sr-card" data-type="users">
+            <div class="sr-card__header">
+                <div class="sr-card__icon sr-card__icon--pink">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </div>
+                <span class="sr-card__badge">Users</span>
+            </div>
+            <div class="sr-card__body">
+                <div class="sr-card__counter sr-card__counter--pink">
+                    <span class="sr-card__counter-num"><?php echo number_format( $counts['users'] ); ?></span>
+                    <span class="sr-card__counter-label"><?php echo 1 === $counts['users'] ? 'user' : 'users'; ?> found</span>
+                </div>
+                <h3 class="sr-card__title">Delete All Users</h3>
+                <p class="sr-card__desc">Permanently removes all users from your WordPress site. The current user will be automatically preserved.</p>
+                <div class="sr-card__note">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                    </svg>
+                    Administrator accounts and the current logged-in user are protected.
+                </div>       
+            </div>
+            <div class="sr-card__footer">
+                <form method="post">
+                    <?php wp_nonce_field( 'sr_delete_users', 'sr_delete_users_nonce' ); ?>
+                    <button type="submit" name="sr_delete_users" value="1" class="sr-btn sr-btn--danger sr-delete-trigger"<?php echo 0 === $counts['users'] ? ' disabled title="Nothing to delete"' : ''; ?>>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                        <?php echo 0 === $counts['users'] ? 'Nothing to Delete' : 'Delete All Users'; ?>
                     </button>
                 </form>
             </div>

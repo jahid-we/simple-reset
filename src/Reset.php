@@ -70,6 +70,17 @@ class Reset {
 
 		}
 
+		if ( isset( $_POST['sr_delete_users'] ) ) {
+
+			$this->verify_request(
+				'sr_delete_users',
+				'sr_delete_users_nonce'
+			);
+
+			$this->delete_users();
+
+		}
+
 	}
 
 	private function verify_request( $action, $nonce_name ) {
@@ -163,6 +174,27 @@ class Reset {
 
 	}
 
+	private function delete_users() {
+
+    $users = get_users();
+	$current_user = get_current_user_id();
+
+    foreach ( $users as $user ) {
+		if ( $user->ID === $current_user ) {
+            continue;
+        }
+
+        if ( in_array( 'administrator', $user->roles, true ) ) {
+            continue;
+        }
+
+        wp_delete_user( $user->ID, $current_user );
+    }
+
+    $this->redirect();
+
+	}
+
 	private function redirect() {
 
 		wp_safe_redirect(
@@ -172,34 +204,5 @@ class Reset {
 		exit;
 
 	}
-
-
-// Counters
-
-public function get_post_type_count( $post_type ) {
-
-    $count = wp_count_posts( $post_type );
-
-    return array_sum( (array) $count );
-
-}
-
-public function get_comment_count() {
-
-    $count = wp_count_comments();
-
-    return $count->total_comments;
-
-}
-public function get_taxonomy_count( $taxonomy ) {
-
-    return wp_count_terms(
-        [
-            'taxonomy'   => $taxonomy,
-            'hide_empty' => false,
-        ]
-    );
-
-}
 
 }

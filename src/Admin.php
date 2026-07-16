@@ -78,6 +78,7 @@ class Admin {
             'comments'   => $statistics->get_comment_count(),
             'categories' => $statistics->get_taxonomy_count( 'category' ),
             'tags'       => $statistics->get_taxonomy_count( 'post_tag' ),
+            'users'      => $statistics->get_user_count(),
         ];
 
         require_once SR_PATH . 'templates/dashboard.php';
@@ -95,6 +96,7 @@ class Admin {
         'comments'   => $statistics->get_comment_count(),
         'categories' => $statistics->get_taxonomy_count( 'category' ),
         'tags'       => $statistics->get_taxonomy_count( 'post_tag' ),
+        'users'      => $statistics->get_user_count(),
 
     ];
         require_once SR_PATH . "templates/reset-tools.php";

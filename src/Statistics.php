@@ -35,5 +35,10 @@ public function get_taxonomy_count( $taxonomy ) {
     );
 
 }
+public function get_user_count() {
+
+    return count( get_users() );
+
+}
 
 }
