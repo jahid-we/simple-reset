@@ -1,0 +1,18 @@
+{
+  "name": "jahid/simple-reset",
+  "description": "Simple Reset WordPress Plugin",
+  "type": "wordpress-plugin",
+  "version": "1.0.0",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Jahid Hasan",
+      "email": "jahidhasan370919@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "SimpleReset\\": "src/"
+    }
+  }
+}
