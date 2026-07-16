@@ -9,6 +9,10 @@ $reset_tools_url = admin_url( 'admin.php?page=sr-reset-tools' );
 $settings_url    = admin_url( 'admin.php?page=sr-settings' );
 $wp_version      = get_bloginfo( 'version' );
 $site_url        = home_url();
+
+echo '<pre>';
+print_r( wp_count_posts( 'post' ) );
+echo '</pre>';
 ?>
 
 <div class="sr-page-wrap">

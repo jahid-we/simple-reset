@@ -12,10 +12,16 @@ class Statistics {
 
 public function get_post_type_count( $post_type ) {
 
-    $count = wp_count_posts( $post_type );
-
-    return array_sum( (array) $count );
-
+    return count(
+        get_posts(
+            [
+                'post_type'      => $post_type,
+                'posts_per_page' => -1,
+                'post_status'    => 'any',
+                'fields'         => 'ids',
+            ]
+        )
+    );
 }
 
 public function get_comment_count() {
