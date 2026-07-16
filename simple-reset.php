@@ -1,12 +1,15 @@
 <?php
 /**
  * Plugin Name: Simple Reset
- * Plugin URI: https://example.com
- * Description: A simple WordPress reset plugin.
+ * Plugin URI: https://wordpress.org/plugins/simple-reset/
+ * Description: Safely reset and clean your WordPress website by deleting posts, pages, media, comments, categories, tags, users, and more with built-in protection and confirmation.
  * Version: 1.0.0
+ * Requires at least: 5.8
+ * Requires PHP: 8.0
  * Author: Jahid Hasan
  * Author URI: https://github.com/jahid-we
  * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: simple-reset
  * Domain Path: /languages
  */
