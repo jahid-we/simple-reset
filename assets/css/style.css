@@ -35,6 +35,7 @@
     --sr-pink:   #ec4899; --sr-pink-bg:   #fdf2f8;
     --sr-indigo: #6366f1; --sr-indigo-bg: #eef2ff;
     --sr-emerald: #10b981; --sr-emerald-bg: #ecfdf5;
+    --sr-cyan:    #06b6d4; --sr-cyan-bg:    #ecfeff;
 }
 
 /* ─── Page Wrapper ───────────────────────────────────────────── */
@@ -87,6 +88,7 @@
 .sr-stats-bar__num--pink   { color: var(--sr-pink);   }
 .sr-stats-bar__num--indigo { color: var(--sr-indigo); }
 .sr-stats-bar__num--emerald{ color: var(--sr-emerald);}
+.sr-stats-bar__num--cyan   { color: var(--sr-cyan);   }
 
 .sr-stats-bar__label {
     font-size: 11px;
@@ -237,6 +239,7 @@
 .sr-card__icon--pink   { background: var(--sr-pink-bg);   color: var(--sr-pink);   }
 .sr-card__icon--indigo { background: var(--sr-indigo-bg); color: var(--sr-indigo); }
 .sr-card__icon--emerald{ background: var(--sr-emerald-bg);color: var(--sr-emerald);}
+.sr-card__icon--cyan   { background: var(--sr-cyan-bg);   color: var(--sr-cyan);   }
 
 .sr-card__badge {
     font-size: 11.5px;
@@ -301,6 +304,7 @@
 .sr-card__counter--pink   { background: var(--sr-pink-bg);   border-color: #fbcfe8;  }
 .sr-card__counter--indigo { background: var(--sr-indigo-bg); border-color: #c7d2fe;  }
 .sr-card__counter--emerald{ background: var(--sr-emerald-bg);border-color: #a7f3d0;  }
+.sr-card__counter--cyan   { background: var(--sr-cyan-bg);   border-color: #a5f3fc;  }
 
 .sr-card__counter-num {
     font-size: 28px;
@@ -318,6 +322,7 @@
 .sr-card__counter--pink   .sr-card__counter-num { color: var(--sr-pink);   }
 .sr-card__counter--indigo .sr-card__counter-num { color: var(--sr-indigo); }
 .sr-card__counter--emerald.sr-card__counter-num { color: var(--sr-emerald);}
+.sr-card__counter--cyan   .sr-card__counter-num { color: var(--sr-cyan);   }
 
 .sr-card__counter-label {
     font-size: 12.5px;
@@ -620,6 +625,7 @@
 .sr-dash-stat--pink .sr-dash-stat__icon   { background: var(--sr-pink-bg);   color: var(--sr-pink);   }
 .sr-dash-stat--indigo .sr-dash-stat__icon { background: var(--sr-indigo-bg); color: var(--sr-indigo); }
 .sr-dash-stat--emerald .sr-dash-stat__icon{ background: var(--sr-emerald-bg);color: var(--sr-emerald);}
+.sr-dash-stat--cyan .sr-dash-stat__icon   { background: var(--sr-cyan-bg);   color: var(--sr-cyan);   }
 
 .sr-dash-stat__body {
     display: flex;

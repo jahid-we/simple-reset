@@ -19,11 +19,12 @@ class Reset {
 // MAIN HANDLE RESET FUNCTION
 	public function handle_reset() {
 
-// DELETE ALL POSTS, PAGES, MEDIA
+// DELETE ALL POSTS, PAGES, MEDIA, REVISIONS
 		$post_types = [
 			'sr_delete_posts' => 'post',
 			'sr_delete_pages' => 'page',
 			'sr_delete_media' => 'attachment',
+			'sr_delete_revisions' => 'revision',
 		];
 
 		foreach ( $post_types as $action => $post_type ) {
@@ -121,7 +122,7 @@ class Reset {
 
 	}
 
-// DELETE ALL POSTS, PAGES, MEDIA
+// DELETE ALL POSTS, PAGES, MEDIA, REVISIONS
 	private function delete_post_type( $post_type ) {
 
 		$posts = get_posts(

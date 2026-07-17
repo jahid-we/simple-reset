@@ -122,6 +122,17 @@ $site_url        = home_url();
             </div>
         </div>
 
+        <!-- Revisions -->
+        <div class="sr-dash-stat sr-dash-stat--cyan">
+            <div class="sr-dash-stat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13a9 9 0 1 0 2.13-5.36L3 8"/><polyline points="12 7 12 12 16 14"/></svg>
+            </div>
+            <div class="sr-dash-stat__body">
+                <span class="sr-dash-stat__num"><?php echo number_format( $counts['revisions'] ); ?></span>
+                <span class="sr-dash-stat__label">Revisions</span>
+            </div>
+        </div>
+
     </div>
 
     <!-- Two-column lower section -->

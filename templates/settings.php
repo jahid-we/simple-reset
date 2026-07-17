@@ -2,16 +2,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-$post_types = get_post_types(
-    [
-        'public'  => true,
-        '_builtin' => false,
-    ],
-    'objects'
-);
+$count = wp_count_posts( 'revision' );
 
 echo '<pre>';
-print_r( $post_types );
+print_r( $count );
 echo '</pre>';
 ?>
 

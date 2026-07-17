@@ -21,6 +21,11 @@ $tags_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke=
 $users_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
 $menus_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>';
 $delete_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>';
+$revisions_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 3v5h5"/>
+    <path d="M3.05 13a9 9 0 1 0 2.13-5.36L3 8"/>
+    <polyline points="12 7 12 12 16 14"/>
+</svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -113,6 +118,13 @@ $delete_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
                 $counts["menus"]
             ); ?></span>
             <span class="sr-stats-bar__label">Menus</span>
+        </div>
+        <div class="sr-stats-bar__divider"></div>
+        <div class="sr-stats-bar__item">
+            <span class="sr-stats-bar__num sr-stats-bar__num--cyan"><?php echo number_format(
+                $counts["revisions"]
+            ); ?></span>
+            <span class="sr-stats-bar__label">Revisions</span>
         </div>
     </div>
 
@@ -303,6 +315,28 @@ $delete_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
             'action'        => 'sr_delete_menus',
             'nonce'         => 'sr_delete_menus',
             'button_text'   => 'Delete All Menus',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+        <!-- Delete All Revisions -->
+        <?php
+        $card = [
+            'type'          => 'revisions',
+            'badge'         => 'Revisions',
+            'title'         => 'Delete All Revisions',
+            'description'   => 'Permanently removes all revisions from your WordPress site.',
+            'count'         => $counts['revisions'],
+            'singular'      => 'revision',
+            'plural'        => 'revisions',
+            'icon'          => $revisions_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--cyan',
+            'counter_class' => 'sr-card__counter--cyan',
+            'action'        => 'sr_delete_revisions',
+            'nonce'         => 'sr_delete_revisions',
+            'button_text'   => 'Delete All Revisions',
             'note'          => '',
             'hidden_fields' => [],
         ];

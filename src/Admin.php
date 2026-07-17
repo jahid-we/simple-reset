@@ -75,6 +75,7 @@ class Admin {
             'posts'      => $statistics->get_post_type_count( 'post' ),
             'pages'      => $statistics->get_post_type_count( 'page' ),
             'media'      => $statistics->get_post_type_count( 'attachment' ),
+            'revisions'  => $statistics->get_post_type_count( 'revision' ),
             'comments'   => $statistics->get_comment_count(),
             'categories' => $statistics->get_taxonomy_count( 'category' ),
             'tags'       => $statistics->get_taxonomy_count( 'post_tag' ),
@@ -94,6 +95,7 @@ class Admin {
         'posts'      => $statistics->get_post_type_count( 'post' ),
         'pages'      => $statistics->get_post_type_count( 'page' ),
         'media'      => $statistics->get_post_type_count( 'attachment' ),
+        'revisions'  => $statistics->get_post_type_count( 'revision' ),
         'comments'   => $statistics->get_comment_count(),
         'categories' => $statistics->get_taxonomy_count( 'category' ),
         'tags'       => $statistics->get_taxonomy_count( 'post_tag' ),
@@ -111,11 +113,7 @@ class Admin {
 
     public function about_page()
     {
-        ?>
-        <div class="wrap">
-            <h1>About</h1>
-        </div>
-        <?php
+        require_once SR_PATH . "templates/about.php";
     }
 
 }
