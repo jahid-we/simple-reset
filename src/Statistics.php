@@ -47,4 +47,15 @@ public function get_user_count() {
 
 }
 
+public function get_menu_count() {
+
+    $menus = get_terms( [
+        'taxonomy'   => 'nav_menu',
+        'hide_empty' => false,
+    ] );
+
+    return count( $menus );
+
+}
+
 }

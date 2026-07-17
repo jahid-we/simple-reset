@@ -79,6 +79,7 @@ class Admin {
             'categories' => $statistics->get_taxonomy_count( 'category' ),
             'tags'       => $statistics->get_taxonomy_count( 'post_tag' ),
             'users'      => $statistics->get_user_count(),
+            'menus'      => $statistics->get_menu_count(),
         ];
 
         require_once SR_PATH . 'templates/dashboard.php';
@@ -97,6 +98,7 @@ class Admin {
         'categories' => $statistics->get_taxonomy_count( 'category' ),
         'tags'       => $statistics->get_taxonomy_count( 'post_tag' ),
         'users'      => $statistics->get_user_count(),
+        'menus'      => $statistics->get_menu_count(),
 
     ];
         require_once SR_PATH . "templates/reset-tools.php";

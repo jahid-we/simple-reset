@@ -49,7 +49,7 @@ $total_items = array_sum(array_map("intval", $counts));
         </div>
         <div class="sr-stats-bar__divider"></div>
         <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--red"><?php echo number_format(
+            <span class="sr-stats-bar__num sr-stats-bar__num--indigo"><?php echo number_format(
                 $counts["users"]
             ); ?></span>
             <span class="sr-stats-bar__label">Users</span>
@@ -95,6 +95,13 @@ $total_items = array_sum(array_map("intval", $counts));
                 $counts["tags"]
             ); ?></span>
             <span class="sr-stats-bar__label">Tags</span>
+        </div>
+        <div class="sr-stats-bar__divider"></div>
+        <div class="sr-stats-bar__item">
+            <span class="sr-stats-bar__num sr-stats-bar__num--emerald"><?php echo number_format(
+                $counts["menus"]
+            ); ?></span>
+            <span class="sr-stats-bar__label">Menus</span>
         </div>
     </div>
 
@@ -353,14 +360,14 @@ $total_items = array_sum(array_map("intval", $counts));
         <!-- Delete Users -->
         <div class="sr-card" data-type="users">
             <div class="sr-card__header">
-                <div class="sr-card__icon sr-card__icon--pink">
+                <div class="sr-card__icon sr-card__icon--indigo">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-    <circle cx="12" cy="7" r="4"/></svg></div>
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+             <circle cx="12" cy="7" r="4"/></svg></div>
                 <span class="sr-card__badge">Users</span>
             </div>
             <div class="sr-card__body">
-                <div class="sr-card__counter sr-card__counter--pink">
+                <div class="sr-card__counter sr-card__counter--indigo">
                     <span class="sr-card__counter-num"><?php echo number_format(
                         $counts["users"]
                     ); ?></span>
@@ -392,6 +399,49 @@ $total_items = array_sum(array_map("intval", $counts));
                         <?php echo 0 === $counts["users"]
                             ? "Nothing to Delete"
                             : "Delete All Users"; ?>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- Delete All Menus -->
+        <div class="sr-card" data-type="menus">
+            <div class="sr-card__header">
+                <div class="sr-card__icon sr-card__icon--emerald">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="6" x2="20" y2="6"></line>
+                        <line x1="4" y1="12" x2="20" y2="12"></line>
+                        <line x1="4" y1="18" x2="20" y2="18"></line>
+                    </svg>
+                </div>
+                <span class="sr-card__badge">Menus</span>
+            </div>
+            <div class="sr-card__body">
+                <div class="sr-card__counter sr-card__counter--emerald">
+                    <span class="sr-card__counter-num"><?php echo number_format(
+                        $counts["menus"]
+                    ); ?></span>
+                    <span class="sr-card__counter-label"><?php echo 1 ===
+                    $counts["menus"]
+                        ? "menu"
+                        : "menus"; ?> found</span>
+                </div>
+                <h3 class="sr-card__title">Delete All Menus</h3>
+                <p class="sr-card__desc">Permanently removes all menus from your WordPress site.</p>
+            </div>
+            <div class="sr-card__footer">
+                <form method="post">
+                    <?php wp_nonce_field(
+                        "sr_delete_menus",
+                        "sr_delete_menus_nonce"
+                    ); ?>
+                    <button type="submit" name="sr_delete_menus" value="1" class="sr-btn sr-btn--danger sr-delete-trigger"<?php echo 0 ===
+                    $counts["menus"]
+                        ? ' disabled title="Nothing to delete"'
+                        : ""; ?>>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                        <?php echo 0 === $counts["menus"]
+                            ? "Nothing to Delete"
+                            : "Delete All Menus"; ?>
                     </button>
                 </form>
             </div>

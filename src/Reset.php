@@ -16,8 +16,10 @@ class Reset {
 
 	}
 
+// MAIN HANDLE RESET FUNCTION
 	public function handle_reset() {
 
+// DELETE ALL POSTS, PAGES, MEDIA
 		$post_types = [
 			'sr_delete_posts' => 'post',
 			'sr_delete_pages' => 'page',
@@ -39,6 +41,7 @@ class Reset {
 
 		}
 
+// DELETE ALL CATEGORIES & TAGS
 		$taxonomies = [
 			'sr_delete_categories' => 'category',
 			'sr_delete_tags'       => 'post_tag',
@@ -59,6 +62,7 @@ class Reset {
 
 		}
 
+// DELETE ALL COMMENTS
 		if ( isset( $_POST['sr_delete_comments'] ) ) {
 
 			$this->verify_request(
@@ -70,6 +74,7 @@ class Reset {
 
 		}
 
+// DELETE ALL USERS
 		if ( isset( $_POST['sr_delete_users'] ) ) {
 
 			$this->verify_request(
@@ -81,8 +86,21 @@ class Reset {
 
 		}
 
+// DELETE ALL MENUS
+		if ( isset( $_POST['sr_delete_menus'] ) ) {
+
+			$this->verify_request(
+				'sr_delete_menus',
+				'sr_delete_menus_nonce'
+			);
+
+			$this->delete_menus();
+
+		}
+
 	}
 
+// NONCE VERIFICATION
 	private function verify_request( $action, $nonce_name ) {
 
 		if ( ! isset( $_POST[ $nonce_name ] ) ) {
@@ -103,6 +121,7 @@ class Reset {
 
 	}
 
+// DELETE ALL POSTS, PAGES, MEDIA
 	private function delete_post_type( $post_type ) {
 
 		$posts = get_posts(
@@ -127,6 +146,7 @@ class Reset {
 
 	}
 
+// DELETE ALL CATEGORIES & TAGS
 	private function delete_terms( $taxonomy ) {
 
 		$terms = get_terms(
@@ -158,6 +178,7 @@ class Reset {
 
 	}
 
+// DELETE ALL COMMENTS
 	private function delete_comments() {
 
 		$comments = get_comments(
@@ -174,6 +195,7 @@ class Reset {
 
 	}
 
+// DELETE ALL USERS
 	private function delete_users() {
 
     $users = get_users();
@@ -194,6 +216,21 @@ class Reset {
     $this->redirect();
 
 	}
+
+// DELETE ALL MENU
+private function delete_menus() {
+
+    $menus = wp_get_nav_menus();
+
+    foreach ( $menus as $menu ) {
+
+        wp_delete_nav_menu( $menu->term_id );
+
+    }
+
+    $this->redirect();
+
+}
 
 	private function redirect() {
 

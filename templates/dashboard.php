@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // $counts injected by Admin::admin_page() via Statistics.
-$total_items   = array_sum( array_map( 'intval', $counts ) );
+$total_items     = array_sum( array_map( 'intval', $counts ) );
 $reset_tools_url = admin_url( 'admin.php?page=sr-reset-tools' );
 $settings_url    = admin_url( 'admin.php?page=sr-settings' );
 $wp_version      = get_bloginfo( 'version' );
@@ -25,7 +25,7 @@ $site_url        = home_url();
             </div>
         </div>
         <div class="sr-dash-version-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px; vertical-align:middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
             v<?php echo esc_html( SR_VERSION ); ?>
         </div>
     </div>
@@ -34,6 +34,7 @@ $site_url        = home_url();
     <div class="sr-dash-section-label">Content Overview</div>
     <div class="sr-dash-stat-grid">
 
+        <!-- Posts -->
         <div class="sr-dash-stat sr-dash-stat--red">
             <div class="sr-dash-stat__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
@@ -44,6 +45,7 @@ $site_url        = home_url();
             </div>
         </div>
 
+        <!-- Pages -->
         <div class="sr-dash-stat sr-dash-stat--orange">
             <div class="sr-dash-stat__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -54,6 +56,7 @@ $site_url        = home_url();
             </div>
         </div>
 
+        <!-- Media -->
         <div class="sr-dash-stat sr-dash-stat--purple">
             <div class="sr-dash-stat__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
@@ -64,6 +67,7 @@ $site_url        = home_url();
             </div>
         </div>
 
+        <!-- Comments -->
         <div class="sr-dash-stat sr-dash-stat--blue">
             <div class="sr-dash-stat__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -74,6 +78,7 @@ $site_url        = home_url();
             </div>
         </div>
 
+        <!-- Categories -->
         <div class="sr-dash-stat sr-dash-stat--teal">
             <div class="sr-dash-stat__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
@@ -84,6 +89,7 @@ $site_url        = home_url();
             </div>
         </div>
 
+        <!-- Tags -->
         <div class="sr-dash-stat sr-dash-stat--pink">
             <div class="sr-dash-stat__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
@@ -91,6 +97,28 @@ $site_url        = home_url();
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['tags'] ); ?></span>
                 <span class="sr-dash-stat__label">Tags</span>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="sr-dash-stat sr-dash-stat--indigo">
+            <div class="sr-dash-stat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sr-dash-stat__body">
+                <span class="sr-dash-stat__num"><?php echo number_format( $counts['users'] ); ?></span>
+                <span class="sr-dash-stat__label">Users</span>
+            </div>
+        </div>
+
+        <!-- Menus -->
+        <div class="sr-dash-stat sr-dash-stat--emerald">
+            <div class="sr-dash-stat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            </div>
+            <div class="sr-dash-stat__body">
+                <span class="sr-dash-stat__num"><?php echo number_format( $counts['menus'] ); ?></span>
+                <span class="sr-dash-stat__label">Menus</span>
             </div>
         </div>
 
@@ -155,7 +183,7 @@ $site_url        = home_url();
 
                     <div class="sr-dash-info-row">
                         <span class="sr-dash-info-row__key">Plugin Version</span>
-                        <span class="sr-dash-info-row__val sr-dash-info-row__val--badge"><?php echo esc_html( SR_VERSION ); ?></span>
+                        <span class="sr-dash-info-row__val sr-dash-info-row__val--badge sr-dash-info-row__val--red"><?php echo esc_html( SR_VERSION ); ?></span>
                     </div>
 
                     <div class="sr-dash-info-row">
@@ -172,7 +200,7 @@ $site_url        = home_url();
                         <span class="sr-dash-info-row__key">Site URL</span>
                         <a href="<?php echo esc_url( $site_url ); ?>" target="_blank" class="sr-dash-info-row__val sr-dash-info-row__val--link">
                             <?php echo esc_html( $site_url ); ?>
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         </a>
                     </div>
 
