@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+
 class Settings {
 
     public function __construct() {

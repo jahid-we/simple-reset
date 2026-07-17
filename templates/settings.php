@@ -2,6 +2,17 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+$post_types = get_post_types(
+    [
+        'public'  => true,
+        '_builtin' => false,
+    ],
+    'objects'
+);
+
+echo '<pre>';
+print_r( $post_types );
+echo '</pre>';
 ?>
 
 <div class="wrap">
