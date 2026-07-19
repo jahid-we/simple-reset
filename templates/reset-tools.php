@@ -9,36 +9,36 @@ $deleted = isset($_GET["deleted"])
     ? sanitize_text_field(wp_unslash($_GET["deleted"]))
     : "";
 
-$total_items = array_sum(array_map("intval", $counts));
+// Fetch safety option settings
+$sr_enable_reset    = get_option( 'sr_enable_reset', '1' );
+$allowed_ids_str    = get_option( 'sr_allowed_user_ids', '' );
+$require_backup     = get_option( 'sr_require_backup', '0' );
+
+$is_authorized = true;
+if ( ! empty( $allowed_ids_str ) ) {
+    $allowed_ids = array_map( 'intval', array_filter( array_map( 'trim', explode( ',', $allowed_ids_str ) ) ) );
+    if ( ! in_array( get_current_user_id(), $allowed_ids, true ) ) {
+        $is_authorized = false;
+    }
+}
+
+// Global button disable logic
+$GLOBALS['sr_disable_all_buttons'] = ( '1' !== $sr_enable_reset || ! $is_authorized );
 
 // Card SVG icons definition
 $posts_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>';
-$pages_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
-$media_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+$pages_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>';
+$media_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
 $comments_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 $categories_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>';
 $tags_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>';
-$users_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
-$menus_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>';
+$users_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+$menus_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
 $delete_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>';
-$revisions_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 3v5h5"/>
-    <path d="M3.05 13a9 9 0 1 0 2.13-5.36L3 8"/>
-    <polyline points="12 7 12 12 16 14"/>
-</svg>';
-$post_auto_draft_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-    <polyline points="14 2 14 8 20 8"/>
-    <path d="M9 15a3 3 0 1 0 3-3"/>
-    <polyline points="9 12 9 15 12 15"/>
-</svg>';
-$page_auto_draft_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="5" y="3" width="14" height="18" rx="2"/>
-    <line x1="8" y1="7" x2="16" y2="7"/>
-    <line x1="8" y1="10" x2="16" y2="10"/>
-    <path d="M9 17a3 3 0 1 0 3-3"/>
-    <polyline points="9 14 9 17 12 17"/>
-</svg>';
+$revisions_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/><line x1="12" y1="7" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="14"/></svg>';
+$post_auto_draft_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"/></svg>';
+$page_auto_draft_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polygon points="2 17 12 22 22 17"/><polygon points="2 12 12 17 22 12"/></svg>';
+$trashed_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -68,78 +68,7 @@ $page_auto_draft_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="no
         </div>
     </div>
 
-    <!-- Stats Summary Bar -->
-    <div class="sr-stats-bar">
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num"><?php echo number_format(
-                $total_items
-            ); ?></span>
-            <span class="sr-stats-bar__label">Total Items</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--indigo"><?php echo number_format(
-                $counts["users"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Users</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--red"><?php echo number_format(
-                $counts["posts"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Posts</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--orange"><?php echo number_format(
-                $counts["pages"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Pages</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--purple"><?php echo number_format(
-                $counts["media"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Media</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--blue"><?php echo number_format(
-                $counts["comments"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Comments</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--teal"><?php echo number_format(
-                $counts["categories"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Categories</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--pink"><?php echo number_format(
-                $counts["tags"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Tags</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--emerald"><?php echo number_format(
-                $counts["menus"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Menus</span>
-        </div>
-        <div class="sr-stats-bar__divider"></div>
-        <div class="sr-stats-bar__item">
-            <span class="sr-stats-bar__num sr-stats-bar__num--cyan"><?php echo number_format(
-                $counts["revisions"]
-            ); ?></span>
-            <span class="sr-stats-bar__label">Revisions</span>
-        </div>
-    </div>
+
 
     <!-- Warning Banner -->
     <div class="sr-warning-banner">
@@ -367,8 +296,8 @@ $page_auto_draft_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="no
             'plural'        => 'post auto drafts',
             'icon'          => $post_auto_draft_svg,
             'button_icon'   => $delete_svg,
-            'icon_class'    => 'sr-card__icon--cyan',
-            'counter_class' => 'sr-card__counter--cyan',
+            'icon_class'    => 'sr-card__icon--amber',
+            'counter_class' => 'sr-card__counter--amber',
             'action'        => 'sr_delete_post_auto-draft',
             'nonce'         => 'sr_delete_post_auto-draft',
             'button_text'   => 'Delete Post Auto Draft',
@@ -389,11 +318,33 @@ $page_auto_draft_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="no
             'plural'        => 'page auto drafts',
             'icon'          => $page_auto_draft_svg,
             'button_icon'   => $delete_svg,
-            'icon_class'    => 'sr-card__icon--cyan',
-            'counter_class' => 'sr-card__counter--cyan',
+            'icon_class'    => 'sr-card__icon--fuchsia',
+            'counter_class' => 'sr-card__counter--fuchsia',
             'action'        => 'sr_delete_page_auto-draft',
             'nonce'         => 'sr_delete_page_auto-draft',
             'button_text'   => 'Delete Page Auto Draft',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+        <!-- Delete All Trashed -->
+        <?php
+        $card = [
+            'type'          => 'trashed',
+            'badge'         => 'Trashed Item',
+            'title'         => 'Delete All Trashed',
+            'description'   => 'Permanently removes all trashed items from your WordPress site.',
+            'count'         => $counts['trashed'],
+            'singular'      => 'trashed item',
+            'plural'        => 'trashed items',
+            'icon'          => $trashed_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--rose',
+            'counter_class' => 'sr-card__counter--rose',
+            'action'        => 'sr_delete_trashed',
+            'nonce'         => 'sr_delete_trashed',
+            'button_text'   => 'Delete All Trashed',
             'note'          => '',
             'hidden_fields' => [],
         ];

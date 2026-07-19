@@ -58,4 +58,28 @@ public function get_menu_count() {
 
 }
 
+public function get_trash_count() {
+
+    $total = 0;
+
+    $post_types = get_post_types(
+        [
+            'show_ui' => true,
+        ]
+    );
+
+    foreach ( $post_types as $post_type ) {
+
+        $count = wp_count_posts( $post_type );
+
+        if ( isset( $count->trash ) ) {
+            $total += (int) $count->trash;
+        }
+
+    }
+
+    return $total;
+
+}
+
 }

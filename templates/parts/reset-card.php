@@ -91,9 +91,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                 value="1"
                 class="sr-btn sr-btn--danger sr-delete-trigger"
                 <?php
-                echo 0 === $card['count']
-                    ? 'disabled title="Nothing to delete"'
-                    : '';
+                $disabled_reason = '';
+                if ( 0 === $card['count'] ) {
+                    $disabled_reason = 'Nothing to delete';
+                } elseif ( isset( $GLOBALS['sr_disable_all_buttons'] ) && $GLOBALS['sr_disable_all_buttons'] ) {
+                    $disabled_reason = 'Reset actions are currently disabled or restricted';
+                }
+
+                if ( ! empty( $disabled_reason ) ) {
+                    echo 'disabled title="' . esc_attr( $disabled_reason ) . '"';
+                }
                 ?>
             >
 

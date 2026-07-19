@@ -33,106 +33,139 @@ $site_url        = home_url();
     <!-- Content Overview -->
     <div class="sr-dash-section-label">Content Overview</div>
     <div class="sr-dash-stat-grid">
-
+ 
         <!-- Posts -->
         <div class="sr-dash-stat sr-dash-stat--red">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['posts'] ); ?></span>
                 <span class="sr-dash-stat__label">Posts</span>
             </div>
         </div>
-
+ 
         <!-- Pages -->
         <div class="sr-dash-stat sr-dash-stat--orange">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['pages'] ); ?></span>
                 <span class="sr-dash-stat__label">Pages</span>
             </div>
         </div>
-
+ 
         <!-- Media -->
         <div class="sr-dash-stat sr-dash-stat--purple">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['media'] ); ?></span>
                 <span class="sr-dash-stat__label">Media Files</span>
             </div>
         </div>
-
+ 
         <!-- Comments -->
         <div class="sr-dash-stat sr-dash-stat--blue">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['comments'] ); ?></span>
                 <span class="sr-dash-stat__label">Comments</span>
             </div>
         </div>
-
+ 
         <!-- Categories -->
         <div class="sr-dash-stat sr-dash-stat--teal">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['categories'] ); ?></span>
                 <span class="sr-dash-stat__label">Categories</span>
             </div>
         </div>
-
+ 
         <!-- Tags -->
         <div class="sr-dash-stat sr-dash-stat--pink">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['tags'] ); ?></span>
                 <span class="sr-dash-stat__label">Tags</span>
             </div>
         </div>
-
+ 
         <!-- Users -->
         <div class="sr-dash-stat sr-dash-stat--indigo">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['users'] ); ?></span>
                 <span class="sr-dash-stat__label">Users</span>
             </div>
         </div>
-
+ 
         <!-- Menus -->
         <div class="sr-dash-stat sr-dash-stat--emerald">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['menus'] ); ?></span>
                 <span class="sr-dash-stat__label">Menus</span>
             </div>
         </div>
-
+ 
         <!-- Revisions -->
         <div class="sr-dash-stat sr-dash-stat--cyan">
             <div class="sr-dash-stat__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13a9 9 0 1 0 2.13-5.36L3 8"/><polyline points="12 7 12 12 16 14"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/><line x1="12" y1="7" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="14"/></svg>
             </div>
             <div class="sr-dash-stat__body">
                 <span class="sr-dash-stat__num"><?php echo number_format( $counts['revisions'] ); ?></span>
                 <span class="sr-dash-stat__label">Revisions</span>
             </div>
         </div>
-
+ 
+        <!-- Post Auto Drafts -->
+        <div class="sr-dash-stat sr-dash-stat--amber">
+            <div class="sr-dash-stat__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"/></svg>
+            </div>
+            <div class="sr-dash-stat__body">
+                <span class="sr-dash-stat__num"><?php echo number_format( $counts['post_auto-draft'] ); ?></span>
+                <span class="sr-dash-stat__label">Post Auto Drafts</span>
+            </div>
+        </div>
+ 
+        <!-- Page Auto Drafts -->
+        <div class="sr-dash-stat sr-dash-stat--fuchsia">
+            <div class="sr-dash-stat__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polygon points="2 17 12 22 22 17"/><polygon points="2 12 12 17 22 12"/></svg>
+            </div>
+            <div class="sr-dash-stat__body">
+                <span class="sr-dash-stat__num"><?php echo number_format( $counts['page_auto-draft'] ); ?></span>
+                <span class="sr-dash-stat__label">Page Auto Drafts</span>
+            </div>
+        </div>
+ 
+        <!-- Trashed Items -->
+        <div class="sr-dash-stat sr-dash-stat--rose">
+            <div class="sr-dash-stat__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            </div>
+            <div class="sr-dash-stat__body">
+                <span class="sr-dash-stat__num"><?php echo number_format( $counts['trashed'] ); ?></span>
+                <span class="sr-dash-stat__label">Trashed Items</span>
+            </div>
+        </div>
+ 
     </div>
 
     <!-- Two-column lower section -->
