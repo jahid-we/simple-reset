@@ -2,11 +2,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-$count = wp_count_posts( 'revision' );
-
-echo '<pre>';
-print_r( $count );
-echo '</pre>';
 ?>
 
 <div class="wrap">

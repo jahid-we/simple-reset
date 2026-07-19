@@ -10,14 +10,14 @@ class Statistics {
 
 // Counters
 
-public function get_post_type_count( $post_type ) {
+public function get_post_type_count( string $post_type,string $post_status = 'any') {
 
     return count(
         get_posts(
             [
                 'post_type'      => $post_type,
                 'posts_per_page' => -1,
-                'post_status'    => 'any',
+                'post_status'    => $post_status,
                 'fields'         => 'ids',
             ]
         )

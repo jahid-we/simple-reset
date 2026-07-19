@@ -101,6 +101,8 @@ class Admin {
         'tags'       => $statistics->get_taxonomy_count( 'post_tag' ),
         'users'      => $statistics->get_user_count(),
         'menus'      => $statistics->get_menu_count(),
+        'post_auto-draft' => $statistics->get_post_type_count( 'post', 'auto-draft' ),
+        'page_auto-draft' => $statistics->get_post_type_count( 'page', 'auto-draft' ),
 
     ];
         require_once SR_PATH . "templates/reset-tools.php";

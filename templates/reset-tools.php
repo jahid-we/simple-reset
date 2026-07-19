@@ -26,6 +26,19 @@ $revisions_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" st
     <path d="M3.05 13a9 9 0 1 0 2.13-5.36L3 8"/>
     <polyline points="12 7 12 12 16 14"/>
 </svg>';
+$post_auto_draft_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+    <polyline points="14 2 14 8 20 8"/>
+    <path d="M9 15a3 3 0 1 0 3-3"/>
+    <polyline points="9 12 9 15 12 15"/>
+</svg>';
+$page_auto_draft_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="3" width="14" height="18" rx="2"/>
+    <line x1="8" y1="7" x2="16" y2="7"/>
+    <line x1="8" y1="10" x2="16" y2="10"/>
+    <path d="M9 17a3 3 0 1 0 3-3"/>
+    <polyline points="9 14 9 17 12 17"/>
+</svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -337,6 +350,50 @@ $revisions_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" st
             'action'        => 'sr_delete_revisions',
             'nonce'         => 'sr_delete_revisions',
             'button_text'   => 'Delete All Revisions',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+        <!-- Delete Post Auto Draft -->
+        <?php
+        $card = [
+            'type'          => 'post_auto-draft',
+            'badge'         => 'Post Auto Draft',
+            'title'         => 'Delete Post Auto Draft',
+            'description'   => 'Permanently removes all post auto draft from your WordPress site.',
+            'count'         => $counts['post_auto-draft'],
+            'singular'      => 'post auto draft',
+            'plural'        => 'post auto drafts',
+            'icon'          => $post_auto_draft_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--cyan',
+            'counter_class' => 'sr-card__counter--cyan',
+            'action'        => 'sr_delete_post_auto-draft',
+            'nonce'         => 'sr_delete_post_auto-draft',
+            'button_text'   => 'Delete Post Auto Draft',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+        <!-- Delete Page Auto Draft -->
+        <?php
+        $card = [
+            'type'          => 'page_auto-draft',
+            'badge'         => 'Page Auto Draft',
+            'title'         => 'Delete Page Auto Draft',
+            'description'   => 'Permanently removes all page auto draft from your WordPress site.',
+            'count'         => $counts['page_auto-draft'],
+            'singular'      => 'page auto draft',
+            'plural'        => 'page auto drafts',
+            'icon'          => $page_auto_draft_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--cyan',
+            'counter_class' => 'sr-card__counter--cyan',
+            'action'        => 'sr_delete_page_auto-draft',
+            'nonce'         => 'sr_delete_page_auto-draft',
+            'button_text'   => 'Delete Page Auto Draft',
             'note'          => '',
             'hidden_fields' => [],
         ];

@@ -99,6 +99,27 @@ class Reset {
 
 		}
 
+// AUTO DRAFTS POSTS & PAGES
+		if(isset($_POST['sr_delete_post_auto-draft'])) {
+		
+			$this->verify_request(
+				'sr_delete_post_auto-draft',
+				'sr_delete_post_auto-draft_nonce'
+			);
+
+			$this->delete_post_type('post', 'auto-draft');
+		}
+
+		if(isset($_POST['sr_delete_page_auto-draft'])) {
+			$this->verify_request(
+			'sr_delete_page_auto-draft',
+			'sr_delete_page_auto-draft_nonce'
+		);
+
+			$this->delete_post_type('page', 'auto-draft');
+		}
+
+
 	}
 
 // NONCE VERIFICATION
@@ -123,12 +144,12 @@ class Reset {
 	}
 
 // DELETE ALL POSTS, PAGES, MEDIA, REVISIONS
-	private function delete_post_type( $post_type ) {
+	private function delete_post_type( string $post_type ,string $post_status = 'any') {
 
 		$posts = get_posts(
 			[
 				'post_type'      => $post_type,
-				'post_status'    => 'any',
+				'post_status'    => $post_status,
 				'posts_per_page' => -1,
 			]
 		);
