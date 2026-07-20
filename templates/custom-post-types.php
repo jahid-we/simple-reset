@@ -55,6 +55,12 @@ $delete_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
                 <?php
                 $label       = ! empty( $post_type_object->labels->singular_name ) ? $post_type_object->labels->singular_name : $post_type;
                 $description = ! empty( $post_type_object->description ) ? $post_type_object->description : sprintf( 'Permanently removes all %s content.', $label );
+                $note        = '';
+
+                if ( 'elementor_library' === $post_type ) {
+                    $note = 'Elementor’s active Site Settings kit will be preserved.';
+                }
+
                 $card        = [
                     'type'          => $post_type,
                     'badge'         => $label,
@@ -70,7 +76,7 @@ $delete_svg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
                     'action'        => 'sr_delete_cpt_' . $post_type,
                     'nonce'         => 'sr_delete_cpt_' . $post_type,
                     'button_text'   => sprintf( 'Delete All %s', $label ),
-                    'note'          => '',
+                    'note'          => $note,
                     'hidden_fields' => [],
                 ];
 

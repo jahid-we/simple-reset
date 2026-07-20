@@ -201,6 +201,8 @@ class Reset {
 			$post_status = array_keys( get_post_stati() );
 		}
 
+		$protected_post_ids = $this->get_protected_post_ids( $post_type );
+
 		$posts = get_posts(
 			[
 				'post_type'      => $post_type,
@@ -210,6 +212,10 @@ class Reset {
 		);
 
 		foreach ( $posts as $post ) {
+			if ( in_array( $post->ID, $protected_post_ids, true ) ) {
+				continue;
+			}
+
 			if ( 'attachment' === $post_type ) {
 				wp_delete_attachment( $post->ID, true );
 			} else {
@@ -218,6 +224,27 @@ class Reset {
 		}
 
 		$this->redirect( $action_name, $redirect_page );
+	}
+
+	/**
+	 * Get post IDs that must not be removed because another plugin relies on them.
+	 *
+	 * @param string $post_type The post type being deleted.
+	 * @return int[] Protected post IDs.
+	 */
+	private function get_protected_post_ids( string $post_type ) {
+		$protected_post_ids = [];
+
+		// Elementor stores its active Site Settings kit as an elementor_library post.
+		if ( 'elementor_library' === $post_type ) {
+			$active_kit_id = (int) get_option( 'elementor_active_kit', 0 );
+
+			if ( $active_kit_id > 0 && get_post( $active_kit_id ) ) {
+				$protected_post_ids[] = $active_kit_id;
+			}
+		}
+
+		return $protected_post_ids;
 	}
 
 	// DELETE ALL CATEGORIES & TAGS
