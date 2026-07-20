@@ -49,6 +49,15 @@ class Admin {
 
         add_submenu_page(
             "simple-reset",
+            "Custom Post Types",
+            "Custom Post Types",
+            "manage_options",
+            "sr-custom-post-types",
+            [$this, "custom_post_types_page"]
+        );
+
+        add_submenu_page(
+            "simple-reset",
             "Settings",
             "Settings",
             "manage_options",
@@ -115,6 +124,14 @@ class Admin {
     public function settings_page()
     {
         require_once SR_PATH . "templates/settings.php";
+    }
+
+    public function custom_post_types_page()
+    {
+        $statistics       = new Statistics();
+        $custom_post_types = Reset::get_custom_post_types();
+
+        require_once SR_PATH . "templates/custom-post-types.php";
     }
 
     public function about_page()

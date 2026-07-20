@@ -21,6 +21,7 @@ class Assets {
      $allowed_hooks = [
         'toplevel_page_simple-reset',
         'reset_page_sr-reset-tools',
+        'reset_page_sr-custom-post-types',
         'reset_page_sr-settings',
         'reset_page_sr-about',
     ];

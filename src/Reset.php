@@ -7,6 +7,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Reset {
 
+	/**
+	 * Get registered custom post types that are safe to offer for deletion.
+	 *
+	 * @return array<string, \WP_Post_Type>
+	 */
+	public static function get_custom_post_types() {
+		$core_post_types = [
+			'post',
+			'page',
+			'attachment',
+			'revision',
+			'nav_menu_item',
+			'custom_css',
+			'customize_changeset',
+			'oembed_cache',
+			'user_request',
+			'wp_block',
+			'wp_template',
+			'wp_template_part',
+			'wp_global_styles',
+			'wp_navigation',
+			'wp_font_family',
+			'wp_font_face',
+		];
+
+		$custom_post_types = get_post_types( [ '_builtin' => false ], 'objects' );
+
+		foreach ( $core_post_types as $post_type ) {
+			unset( $custom_post_types[ $post_type ] );
+		}
+
+		return $custom_post_types;
+	}
+
 	public function __construct() {
 		add_action(
 			'admin_init',
@@ -33,7 +67,14 @@ class Reset {
 			'sr_delete_trashed',
 		];
 
-		foreach ( $all_actions as $action_key ) {
+		$custom_post_types = self::get_custom_post_types();
+		$custom_actions    = [];
+
+		foreach ( $custom_post_types as $post_type => $post_type_object ) {
+			$custom_actions[ 'sr_delete_cpt_' . $post_type ] = $post_type;
+		}
+
+		foreach ( array_merge( $all_actions, array_keys( $custom_actions ) ) as $action_key ) {
 			if ( isset( $_POST[ $action_key ] ) ) {
 				$is_reset_request = true;
 				break;
@@ -121,6 +162,13 @@ class Reset {
 			$this->verify_request( 'sr_delete_trashed', 'sr_delete_trashed_nonce' );
 			$this->delete_trash( 'sr_delete_trashed' );
 		}
+
+		foreach ( $custom_actions as $action => $post_type ) {
+			if ( isset( $_POST[ $action ] ) ) {
+				$this->verify_request( $action, $action . '_nonce' );
+				$this->delete_post_type( $post_type, 'any', $action, 'sr-custom-post-types' );
+			}
+		}
 	}
 
 	// NONCE & PERMISSION VERIFICATION
@@ -148,7 +196,11 @@ class Reset {
 	}
 
 	// DELETE ALL POSTS, PAGES, MEDIA, REVISIONS
-	private function delete_post_type( string $post_type, string $post_status = 'any', string $action_name = '' ) {
+	private function delete_post_type( string $post_type, string $post_status = 'any', string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
+		if ( 'any' === $post_status ) {
+			$post_status = array_keys( get_post_stati() );
+		}
+
 		$posts = get_posts(
 			[
 				'post_type'      => $post_type,
@@ -165,7 +217,7 @@ class Reset {
 			}
 		}
 
-		$this->redirect( $action_name );
+		$this->redirect( $action_name, $redirect_page );
 	}
 
 	// DELETE ALL CATEGORIES & TAGS
@@ -254,7 +306,7 @@ class Reset {
 		$this->redirect( $action_name );
 	}
 
-	private function redirect( string $action_name = '' ) {
+	private function redirect( string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
 		// Send Email Alert if enabled
 		if ( get_option( 'sr_email_alert', '0' ) === '1' ) {
 			$current_user = wp_get_current_user();
@@ -297,7 +349,7 @@ class Reset {
 		}
 
 		wp_safe_redirect(
-			admin_url( 'admin.php?page=sr-reset-tools&deleted=1' )
+			admin_url( 'admin.php?page=' . $redirect_page . '&deleted=1' )
 		);
 		exit;
 	}
