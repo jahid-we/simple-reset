@@ -138,6 +138,13 @@ class Reset {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have permission.', 'simple-reset' ) );
 		}
+
+		if (
+			'1' === get_option( 'sr_require_backup', '0' ) &&
+			( ! isset( $_POST['sr_backup_confirmed'] ) || '1' !== $_POST['sr_backup_confirmed'] )
+		) {
+			wp_die( esc_html__( 'Please confirm that you have backed up the database before continuing.', 'simple-reset' ) );
+		}
 	}
 
 	// DELETE ALL POSTS, PAGES, MEDIA, REVISIONS

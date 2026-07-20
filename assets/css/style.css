@@ -558,6 +558,21 @@
     box-shadow: 0 0 0 3px rgba(239,68,68,.12);
 }
 
+.sr-modal-backup-confirmation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: -8px 0 24px;
+    color: var(--sr-text);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sr-modal-backup-confirmation input {
+    margin: 0;
+}
+
 .sr-modal-buttons {
     display: flex;
     gap: 10px;

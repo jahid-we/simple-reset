@@ -3,6 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("sr-confirm-input");
   const confirm = document.getElementById("sr-modal-confirm");
   const cancel = document.getElementById("sr-modal-cancel");
+  const backupConfirmation = document.getElementById("sr-backup-confirmation");
+
+  if (!modal || !input || !confirm || !cancel) {
+    return;
+  }
 
   let currentForm = null;
   let triggerName = null;
@@ -25,15 +30,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
       input.value = "";
 
-      confirm.disabled = true;
+      if (backupConfirmation) {
+        backupConfirmation.checked = false;
+      }
+
+      updateConfirmButton();
 
       input.focus();
     });
   });
 
-  input.addEventListener("input", function () {
-    confirm.disabled = input.value !== "DELETE";
-  });
+  function updateConfirmButton() {
+    const backupConfirmed = !backupConfirmation || backupConfirmation.checked;
+    confirm.disabled = input.value !== "DELETE" || !backupConfirmed;
+  }
+
+  input.addEventListener("input", updateConfirmButton);
+
+  if (backupConfirmation) {
+    backupConfirmation.addEventListener("change", updateConfirmButton);
+  }
 
   cancel.addEventListener("click", function () {
     modal.classList.remove("active");
@@ -55,6 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
       hidden.name  = triggerName;
       hidden.value = triggerValue || "1";
       currentForm.appendChild(hidden);
+    }
+
+    if (backupConfirmation && backupConfirmation.checked) {
+      const backupHidden = document.createElement("input");
+      backupHidden.type = "hidden";
+      backupHidden.name = "sr_backup_confirmed";
+      backupHidden.value = "1";
+      currentForm.appendChild(backupHidden);
     }
 
     currentForm.submit();

@@ -13,6 +13,10 @@ $deleted = isset($_GET["deleted"])
 $sr_enable_reset    = get_option( 'sr_enable_reset', '1' );
 $allowed_ids_str    = get_option( 'sr_allowed_user_ids', '' );
 $require_backup     = get_option( 'sr_require_backup', '0' );
+$warning_message    = get_option( 'sr_warning_message', '' );
+$warning_message    = '' !== trim( $warning_message )
+    ? $warning_message
+    : 'All deletions below are permanent and irreversible. Please back up your database before proceeding.';
 
 $is_authorized = true;
 if ( ! empty( $allowed_ids_str ) ) {
@@ -73,7 +77,7 @@ $trashed_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stro
     <!-- Warning Banner -->
     <div class="sr-warning-banner">
         <svg class="sr-warning-banner__icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
-        <p><strong>Warning:</strong> All deletions below are permanent and irreversible. Please back up your database before proceeding.</p>
+        <p><strong>Warning:</strong> <?php echo esc_html( $warning_message ); ?></p>
     </div>
 
     <!-- Cards Grid -->
@@ -378,6 +382,13 @@ $trashed_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stro
                 spellcheck="false"
             >
         </div>
+
+        <?php if ( '1' === $require_backup ) : ?>
+            <label class="sr-modal-backup-confirmation">
+                <input type="checkbox" id="sr-backup-confirmation" value="1">
+                <span>I confirm that I have backed up the database.</span>
+            </label>
+        <?php endif; ?>
 
         <div class="sr-modal-buttons">
             <button type="button" id="sr-modal-cancel" class="sr-btn sr-btn--ghost">
