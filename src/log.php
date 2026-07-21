@@ -36,13 +36,28 @@ class Log {
 	}
 
 	/**
+	 * Check whether the activity log table exists.
+	 */
+	private static function table_exists(): bool {
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'sr_activity_logs';
+
+		return $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name;
+	}
+
+	/**
 	 * Add activity log.
 	 */
 	public static function add( string $action, string $description = '' ) {
 
+		if ( ! self::table_exists() ) {
+			return false;
+		}
+
 		global $wpdb;
 
-		$table_name  = $wpdb->prefix . 'sr_activity_logs';
+		$table_name   = $wpdb->prefix . 'sr_activity_logs';
 		$current_user = wp_get_current_user();
 
 		$ip_address = sanitize_text_field(
@@ -77,27 +92,35 @@ class Log {
 	 */
 	public static function get() {
 
-	global $wpdb;
+		global $wpdb;
 
-	$table_name = $wpdb->prefix . 'sr_activity_logs';
+		$table_name = $wpdb->prefix . 'sr_activity_logs';
 
-	$sql = "
-		SELECT *
-		FROM $table_name
-		ORDER BY created_at DESC
-	";
+		if ( ! self::table_exists() ) {
+			return [];
+		}
 
-	return $wpdb->get_results( $sql, ARRAY_A );
-    }
+		$sql = "
+			SELECT *
+			FROM $table_name
+			ORDER BY created_at DESC
+		";
 
-    public static function clear() {
+		return $wpdb->get_results( $sql, ARRAY_A );
+	}
 
-    global $wpdb;
+	public static function clear() {
 
-    $table_name = $wpdb->prefix . 'sr_activity_logs';
+		global $wpdb;
 
-    return $wpdb->query(
-        "TRUNCATE TABLE $table_name"
-    );
-}
+		if ( ! self::table_exists() ) {
+			return false;
+		}
+
+		$table_name = $wpdb->prefix . 'sr_activity_logs';
+
+		return $wpdb->query(
+			"TRUNCATE TABLE $table_name"
+		);
+	}
 }
