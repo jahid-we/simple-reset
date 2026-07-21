@@ -93,6 +93,7 @@ class Admin {
             'post_auto-draft' => $statistics->get_post_type_count( 'post', 'auto-draft' ),
             'page_auto-draft' => $statistics->get_post_type_count( 'page', 'auto-draft' ),
             'trashed' => $statistics->get_trash_count(),
+            'theme_mods' => $statistics->get_theme_mod_count(),
         ];
 
         require_once SR_PATH . 'templates/dashboard.php';
