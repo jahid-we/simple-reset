@@ -89,4 +89,15 @@ class Log {
 
 	return $wpdb->get_results( $sql, ARRAY_A );
     }
+
+    public static function clear() {
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'sr_activity_logs';
+
+    return $wpdb->query(
+        "TRUNCATE TABLE $table_name"
+    );
+}
 }
