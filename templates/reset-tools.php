@@ -43,6 +43,7 @@ $revisions_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" st
 $post_auto_draft_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"/></svg>';
 $page_auto_draft_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polygon points="2 17 12 22 22 17"/><polygon points="2 12 12 17 22 12"/></svg>';
 $trashed_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
+$customizer_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -349,6 +350,29 @@ $trashed_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stro
             'action'        => 'sr_delete_trashed',
             'nonce'         => 'sr_delete_trashed',
             'button_text'   => 'Delete All Trashed',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+
+        <!-- Reset Theme Customizer -->
+        <?php
+        $card = [
+            'type'          => 'theme-customizer',
+            'badge'         => 'Customizer',
+            'title'         => 'Reset Theme Customizer',
+            'description'   => "Restore the active theme's Customizer settings to their default values. This does not delete the theme or its files.",
+            'count'         => $counts['theme_mods'],
+            'singular'      => 'setting',
+            'plural'        => 'settings',
+            'icon'          => $customizer_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--blue',
+            'counter_class' => 'sr-card__counter--blue',
+            'action'        => 'sr_reset_theme_customizer',
+            'nonce'         => 'sr_reset_theme_customizer',
+            'button_text'   => 'Reset Theme Customizer',
             'note'          => '',
             'hidden_fields' => [],
         ];

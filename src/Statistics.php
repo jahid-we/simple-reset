@@ -82,4 +82,12 @@ public function get_trash_count() {
 
 }
 
+public function get_theme_mod_count() {
+
+    $theme_mods = get_theme_mods();
+
+    return is_array( $theme_mods ) ? count( $theme_mods ) : 0;
+
+}
+
 }

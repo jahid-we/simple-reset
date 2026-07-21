@@ -65,6 +65,7 @@ class Reset {
 			'sr_delete_post_auto-draft',
 			'sr_delete_page_auto-draft',
 			'sr_delete_trashed',
+			'sr_reset_theme_customizer',
 		];
 
 		$custom_post_types = self::get_custom_post_types();
@@ -161,6 +162,12 @@ class Reset {
 		if ( isset( $_POST['sr_delete_trashed'] ) ) {
 			$this->verify_request( 'sr_delete_trashed', 'sr_delete_trashed_nonce' );
 			$this->delete_trash( 'sr_delete_trashed' );
+		}
+
+		// RESET ACTIVE THEME CUSTOMIZER SETTINGS.
+		if ( isset( $_POST['sr_reset_theme_customizer'] ) ) {
+			$this->verify_request( 'sr_reset_theme_customizer', 'sr_reset_theme_customizer_nonce' );
+			$this->reset_theme_customizer( 'sr_reset_theme_customizer' );
 		}
 
 		foreach ( $custom_actions as $action => $post_type ) {
@@ -333,6 +340,13 @@ class Reset {
 		$this->redirect( $action_name );
 	}
 
+	// RESET ACTIVE THEME CUSTOMIZER SETTINGS.
+	private function reset_theme_customizer( string $action_name = '' ) {
+		remove_theme_mods();
+
+		$this->redirect( $action_name );
+	}
+
 	private function redirect( string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
 		// Send Email Alert if enabled
 		if ( get_option( 'sr_email_alert', '0' ) === '1' ) {
@@ -353,6 +367,7 @@ class Reset {
 				'sr_delete_post_auto-draft' => 'Post Auto Drafts',
 				'sr_delete_page_auto-draft' => 'Page Auto Drafts',
 				'sr_delete_trashed'         => 'Trashed Items',
+				'sr_reset_theme_customizer' => 'Theme Customizer',
 			];
 
 			$human_action = isset( $action_labels[ $action_name ] ) ? $action_labels[ $action_name ] : $action_name;
