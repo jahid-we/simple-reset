@@ -219,6 +219,21 @@ $site_url        = home_url();
                     </div>
                     <svg class="sr-dash-action__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </a>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=sr-log' ) ); ?>" class="sr-dash-action sr-dash-action--gray">
+                    <div class="sr-dash-action__icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 8v4l3 3"/>
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                    </div>
+                    <div class="sr-dash-action__text">
+                        <strong>Activity Logs</strong>
+                        <span>View plugin activity history</span>
+                    </div>
+                    <svg class="sr-dash-action__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </a>
             </div>
         </div>
 
