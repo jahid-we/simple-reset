@@ -209,16 +209,6 @@ $site_url        = home_url();
                     </div>
                     <svg class="sr-dash-action__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </a>
-                <a href="<?php echo esc_url( admin_url( 'admin.php?page=sr-about' ) ); ?>" class="sr-dash-action sr-dash-action--gray">
-                    <div class="sr-dash-action__icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    </div>
-                    <div class="sr-dash-action__text">
-                        <strong>About</strong>
-                        <span>Plugin info &amp; documentation</span>
-                    </div>
-                    <svg class="sr-dash-action__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                </a>
                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=sr-log' ) ); ?>" class="sr-dash-action sr-dash-action--gray">
                     <div class="sr-dash-action__icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -233,6 +223,16 @@ $site_url        = home_url();
                     <svg class="sr-dash-action__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="9 18 15 12 9 6"/>
                     </svg>
+                </a>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=sr-about' ) ); ?>" class="sr-dash-action sr-dash-action--gray">
+                    <div class="sr-dash-action__icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    </div>
+                    <div class="sr-dash-action__text">
+                        <strong>About</strong>
+                        <span>Plugin info &amp; documentation</span>
+                    </div>
+                    <svg class="sr-dash-action__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </a>
             </div>
         </div>
