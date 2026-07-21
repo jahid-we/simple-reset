@@ -24,6 +24,7 @@ class Assets {
         'reset_page_sr-custom-post-types',
         'reset_page_sr-settings',
         'reset_page_sr-about',
+        'reset_page_sr-log',
     ];
 
     if ( ! in_array( $hook, $allowed_hooks, true ) ) {

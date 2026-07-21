@@ -67,6 +67,14 @@ class Admin {
 
         add_submenu_page(
             "simple-reset",
+            "Logs",
+            "Logs",
+            "manage_options",
+            "sr-log",
+            [$this, "log_page"]
+        );
+        add_submenu_page(
+            "simple-reset",
             "About",
             "About",
             "manage_options",
@@ -135,10 +143,15 @@ class Admin {
 
         require_once SR_PATH . "templates/custom-post-types.php";
     }
-
+    
+    public function log_page()
+    {
+        require_once SR_PATH . "templates/log.php";
+    }
     public function about_page()
     {
         require_once SR_PATH . "templates/about.php";
     }
+
 
 }
