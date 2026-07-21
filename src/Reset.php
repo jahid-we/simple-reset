@@ -230,6 +230,11 @@ class Reset {
 			}
 		}
 
+		Log::add(
+			$action_name,
+			sprintf( 'Deleted %d %s .', count( $posts ), $post_type )
+		);
+
 		$this->redirect( $action_name, $redirect_page );
 	}
 
@@ -272,6 +277,11 @@ class Reset {
 			wp_delete_term( $term->term_id, $taxonomy );
 		}
 
+		Log::add(
+			$action_name,
+			sprintf( 'Deleted %d %s.', count( $terms ), $taxonomy )
+		);
+
 		$this->redirect( $action_name );
 	}
 
@@ -286,6 +296,11 @@ class Reset {
 		foreach ( $comments as $comment ) {
 			wp_delete_comment( $comment->comment_ID, true );
 		}
+
+		Log::add(
+			$action_name,
+			sprintf( 'Deleted %d comments.', count( $comments ) )
+		);
 
 		$this->redirect( $action_name );
 	}
@@ -305,6 +320,11 @@ class Reset {
 			wp_delete_user( $user->ID, $current_user );
 		}
 
+		Log::add(
+			$action_name,
+			sprintf( 'Deleted %d users.', count( $users ) )
+		);
+
 		$this->redirect( $action_name );
 	}
 
@@ -315,6 +335,11 @@ class Reset {
 		foreach ( $menus as $menu ) {
 			wp_delete_nav_menu( $menu->term_id );
 		}
+
+		Log::add(
+			$action_name,
+			sprintf( 'Deleted %d menus.', count( $menus ) )
+		);
 
 		$this->redirect( $action_name );
 	}
@@ -337,12 +362,22 @@ class Reset {
 			}
 		}
 
+		Log::add(
+			$action_name,
+			sprintf( 'Deleted %d trashed items.', count( $posts ) )
+		);
+
 		$this->redirect( $action_name );
 	}
 
 	// RESET ACTIVE THEME CUSTOMIZER SETTINGS.
 	private function reset_theme_customizer( string $action_name = '' ) {
 		remove_theme_mods();
+
+		Log::add(
+			$action_name,
+			'Reset active theme customizer settings.'
+		);
 
 		$this->redirect( $action_name );
 	}
