@@ -38,7 +38,6 @@ register_activation_hook( __FILE__, 'sr_activate_plugin' );
 
 function sr_activate_plugin() {
     add_option( 'sr_plugin_version', SR_VERSION );
-    SimpleReset\Log::create_table();
 }
 
 /**

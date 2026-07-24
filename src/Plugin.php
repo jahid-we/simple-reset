@@ -24,6 +24,16 @@ class Plugin {
 
     }
 
+    private function maybe_upgrade() {
+
+        if ( ! Log::table_exists() ) {
+
+            Log::create_table();
+
+        }
+
+    }
+
     /**
      * Get instance.
      */

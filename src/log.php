@@ -46,6 +46,8 @@ class Log {
 		return $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name;
 	}
 
+
+
 	/**
 	 * Add activity log.
 	 */
