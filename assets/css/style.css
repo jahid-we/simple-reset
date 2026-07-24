@@ -1144,6 +1144,14 @@
   background: var(--sr-indigo-bg);
   color: var(--sr-indigo);
 }
+.sr-dash-action--purple .sr-dash-action__icon {
+  background: var(--sr-purple-bg);
+  color: var(--sr-purple);
+}
+.sr-dash-action--emerald .sr-dash-action__icon {
+  background: var(--sr-emerald-bg);
+  color: var(--sr-emerald);
+}
 .sr-dash-action--gray .sr-dash-action__icon {
   background: var(--sr-bg);
   color: var(--sr-muted);
@@ -1247,3 +1255,216 @@
   color: var(--sr-indigo);
   text-decoration: underline;
 }
+
+/* ─── Dark Code Block Logs UI ─────────────────────────────────── */
+.sr-code-card {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: var(--sr-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  margin-top: 18px;
+  color: #c9d1d9;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.sr-code-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+}
+
+.sr-code-card__header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sr-code-card__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sr-code-card__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sr-code-card__dot--red {
+  background: #ff5f56;
+  border: 1px solid #e0443e;
+}
+
+.sr-code-card__dot--yellow {
+  background: #ffbd2e;
+  border: 1px solid #dea123;
+}
+
+.sr-code-card__dot--green {
+  background: #27c93f;
+  border: 1px solid #1aab29;
+}
+
+.sr-code-card__filename {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8b949e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sr-code-card__filename svg {
+  color: #a5d6ff;
+}
+
+.sr-code-card__header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sr-code-card__count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7d8590;
+  background: rgba(110, 118, 129, 0.15);
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 100px;
+  padding: 3px 10px;
+}
+
+.sr-code-card__copy-btn {
+  background: #21262d;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.sr-code-card__copy-btn:hover {
+  background: #30363d;
+  color: #f0f6fc;
+  border-color: #8b949e;
+}
+
+.sr-code-card__copy-btn:active {
+  transform: scale(0.97);
+}
+
+.sr-code-body {
+  overflow-x: auto;
+  padding: 0;
+  background: #0d1117;
+}
+
+.sr-code-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.sr-code-table thead {
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+}
+
+.sr-code-table th {
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8b949e;
+  border-bottom: 1px solid #21262d;
+}
+
+.sr-code-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #161b22;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.sr-code-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.sr-code-table tbody tr:hover {
+  background: #161b22;
+}
+
+.sr-code-line-num {
+  color: #484f58;
+  font-weight: 600;
+  user-select: none;
+  width: 48px;
+  text-align: right;
+  padding-right: 12px !important;
+}
+
+.sr-code-time {
+  color: #79c0ff;
+  font-weight: 500;
+}
+
+.sr-code-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  background: rgba(165, 214, 255, 0.15);
+  color: #d2a8ff;
+  border: 1px solid rgba(210, 168, 255, 0.3);
+}
+
+.sr-code-desc {
+  color: #e6edf3;
+}
+
+.sr-code-meta {
+  color: #7ee787;
+  font-size: 12.5px;
+}
+
+.sr-code-empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: #8b949e;
+}
+
+.sr-code-empty__prompt {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 14px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 16px 24px;
+  color: #7ee787;
+}
+
+.sr-code-empty__prompt span {
+  color: #79c0ff;
+}
+
