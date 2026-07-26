@@ -39,6 +39,15 @@ $sr_warning_message    = get_option( 'sr_warning_message', '' );
     </div>
     <?php endif; ?>
 
+    <!-- Success Toast on Import -->
+    <?php if ( isset( $_GET['sr_import_success'] ) && '1' === $_GET['sr_import_success'] ) : ?>
+    <div class="sr-toast sr-toast--success" id="sr-import-toast" style="margin-top: 20px;">
+        <span class="sr-toast__icon">✓</span>
+        <span>Settings successfully imported.</span>
+        <button class="sr-toast__close" onclick="this.parentElement.remove()">✕</button>
+    </div>
+    <?php endif; ?>
+
     <form method="post" action="options.php" style="margin-top: 24px;">
         <?php settings_fields( 'sr_settings_group' ); ?>
 
@@ -161,89 +170,164 @@ $sr_warning_message    = get_option( 'sr_warning_message', '' );
 
     <!-- Export & Import Settings Section -->
     <div style="margin-top: 32px;">
-        <div class="sr-dash-card">
-            <div class="sr-dash-card__header">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                <?php esc_html_e( 'Export & Import Settings', 'simple-reset' ); ?>
-            </div>
-            <div class="sr-dash-card__body" style="padding: 24px;">
-                <div class="sr-dash-lower">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 
-                    <!-- Export Settings Box -->
-                    <div style="display: flex; flex-direction: column; gap: 12px; border-right: 1px solid var(--sr-border); padding-right: 24px;">
-                        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: var(--sr-text);">
+            <!-- Export Panel -->
+            <div style="background: var(--sr-surface); border: 1px solid var(--sr-border); border-radius: var(--sr-radius); box-shadow: var(--sr-shadow); overflow: hidden;">
+                <!-- Panel Header -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid var(--sr-border); background: #fbfbfd; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 38px; height: 38px; background: var(--sr-indigo-bg); border: 1px solid #c7d2fe; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #6366f1; flex-shrink: 0;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="margin: 0 0 2px; font-size: 14.5px; font-weight: 700; color: var(--sr-text);">
                             <?php esc_html_e( 'Export Settings', 'simple-reset' ); ?>
                         </h3>
-                        <p style="margin: 0; font-size: 12.5px; color: var(--sr-muted); line-height: 1.5;">
-                            <?php esc_html_e( 'Export all plugin configuration options to a JSON file for backup or migration.', 'simple-reset' ); ?>
-                        </p>
-                        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin-top: 8px;">
-                            <?php wp_nonce_field( 'sr_export_settings', 'sr_export_settings_nonce' ); ?>
-                            <input type="hidden" name="action" value="sr_export_settings">
-                            <button
-                                type="submit"
-                                name="sr_export_settings"
-                                class="sr-btn"
-                                style="width: auto; padding: 9px 20px; background: var(--sr-surface); color: var(--sr-text); border: 1px solid var(--sr-border); border-radius: var(--sr-radius-sm); font-size: 13.5px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background var(--sr-transition);"
-                            >
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                    <polyline points="7 10 12 15 17 10"/>
-                                    <line x1="12" y1="15" x2="12" y2="3"/>
-                                </svg>
-                                <?php esc_html_e( 'Export Settings', 'simple-reset' ); ?>
-                            </button>
-                        </form>
+                        <p style="margin: 0; font-size: 12px; color: var(--sr-muted);"><?php esc_html_e( 'Download your config as a JSON file', 'simple-reset' ); ?></p>
                     </div>
-
-                    <!-- Import Settings Box -->
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: var(--sr-text);">
-                            <?php esc_html_e( 'Import Settings', 'simple-reset' ); ?>
-                        </h3>
-                        <p style="margin: 0; font-size: 12.5px; color: var(--sr-muted); line-height: 1.5;">
-                            <?php esc_html_e( 'Select a valid Simple Reset settings JSON file to restore plugin configuration options.', 'simple-reset' ); ?>
-                        </p>
-                        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" style="margin-top: 8px; display: flex; flex-direction: column; gap: 12px;">
-                            <?php wp_nonce_field( 'sr_import_settings', 'sr_import_settings_nonce' ); ?>
-                            <input type="hidden" name="action" value="sr_import_settings">
-                            <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <label for="sr_import_file" style="font-size: 12.5px; font-weight: 600; color: var(--sr-text);">
-                                    <?php esc_html_e( 'Choose JSON File', 'simple-reset' ); ?>
-                                </label>
-                                <input
-                                    type="file"
-                                    name="sr_import_file"
-                                    id="sr_import_file"
-                                    accept=".json,application/json"
-                                    style="font-size: 13px; color: var(--sr-text);"
-                                >
-                            </div>
-                            <div>
-                                <button
-                                    type="submit"
-                                    name="sr_import_settings"
-                                    class="sr-btn"
-                                    style="width: auto; padding: 9px 20px; background: var(--sr-surface); color: var(--sr-text); border: 1px solid var(--sr-border); border-radius: var(--sr-radius-sm); font-size: 13.5px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background var(--sr-transition);"
-                                >
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="17 8 12 3 7 8"/>
-                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                    </svg>
-                                    <?php esc_html_e( 'Import Settings', 'simple-reset' ); ?>
-                                </button>
-                            </div>
-                        </form>
+                </div>
+                <!-- Panel Body -->
+                <div style="padding: 22px;">
+                    <p style="margin: 0 0 18px; font-size: 13px; color: var(--sr-muted); line-height: 1.65;">
+                        <?php esc_html_e( 'Save all plugin configuration options to a JSON file for backup or migration to another site.', 'simple-reset' ); ?>
+                    </p>
+                    <!-- Feature tags -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;">
+                        <span style="display: inline-flex; align-items: center; gap: 4px; background: var(--sr-indigo-bg); color: #4f46e5; border: 1px solid #c7d2fe; border-radius: 100px; padding: 3px 10px; font-size: 11.5px; font-weight: 600;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <?php esc_html_e( 'All options', 'simple-reset' ); ?>
+                        </span>
+                        <span style="display: inline-flex; align-items: center; gap: 4px; background: var(--sr-indigo-bg); color: #4f46e5; border: 1px solid #c7d2fe; border-radius: 100px; padding: 3px 10px; font-size: 11.5px; font-weight: 600;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <?php esc_html_e( '.json format', 'simple-reset' ); ?>
+                        </span>
+                        <span style="display: inline-flex; align-items: center; gap: 4px; background: var(--sr-indigo-bg); color: #4f46e5; border: 1px solid #c7d2fe; border-radius: 100px; padding: 3px 10px; font-size: 11.5px; font-weight: 600;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <?php esc_html_e( 'Non-destructive', 'simple-reset' ); ?>
+                        </span>
                     </div>
-
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+                        <?php wp_nonce_field( 'sr_export_settings', 'sr_export_settings_nonce' ); ?>
+                        <input type="hidden" name="action" value="sr_export_settings">
+                        <button
+                            type="submit"
+                            name="sr_export_settings"
+                            style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 20px; background: var(--sr-surface); color: var(--sr-text); border: 1.5px solid var(--sr-border); border-radius: var(--sr-radius-sm); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all var(--sr-transition);"
+                            onmouseover="this.style.borderColor='#6366f1'; this.style.color='#6366f1'; this.style.background='#eef2ff';"
+                            onmouseout="this.style.borderColor='var(--sr-border)'; this.style.color='var(--sr-text)'; this.style.background='var(--sr-surface)';"
+                        >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            <?php esc_html_e( 'Download Settings File', 'simple-reset' ); ?>
+                        </button>
+                    </form>
                 </div>
             </div>
+
+            <!-- Import Panel -->
+            <div style="background: var(--sr-surface); border: 1px solid var(--sr-border); border-radius: var(--sr-radius); box-shadow: var(--sr-shadow); overflow: hidden;">
+                <!-- Panel Header -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid var(--sr-border); background: #fbfbfd; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 38px; height: 38px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; box-shadow: 0 3px 10px rgba(99,102,241,.3);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="margin: 0 0 2px; font-size: 14.5px; font-weight: 700; color: var(--sr-text);">
+                            <?php esc_html_e( 'Import Settings', 'simple-reset' ); ?>
+                        </h3>
+                        <p style="margin: 0; font-size: 12px; color: var(--sr-muted);"><?php esc_html_e( 'Restore config from a JSON file', 'simple-reset' ); ?></p>
+                    </div>
+                </div>
+                <!-- Panel Body -->
+                <div style="padding: 22px;">
+                    <p style="margin: 0 0 18px; font-size: 13px; color: var(--sr-muted); line-height: 1.65;">
+                        <?php esc_html_e( 'Upload a Simple Reset JSON file to restore your plugin configuration. Existing settings will be overwritten.', 'simple-reset' ); ?>
+                    </p>
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" id="sr-import-form">
+                        <?php wp_nonce_field( 'sr_import_settings', 'sr_import_settings_nonce' ); ?>
+                        <input type="hidden" name="action" value="sr_import_settings">
+
+                        <!-- Drop Zone -->
+                        <label for="sr_import_file" id="sr-drop-zone"
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 2px dashed var(--sr-border); border-radius: var(--sr-radius-sm); padding: 22px 16px; margin-bottom: 14px; cursor: pointer; background: var(--sr-bg); transition: all var(--sr-transition); text-align: center;"
+                            onmouseover="this.style.borderColor='#6366f1'; this.style.background='#eef2ff';"
+                            onmouseout="if(!this.classList.contains('has-file')){ this.style.borderColor='var(--sr-border)'; this.style.background='var(--sr-bg)'; }"
+                        >
+                            <div id="sr-drop-icon" style="width: 38px; height: 38px; background: var(--sr-indigo-bg); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #6366f1;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="12" y1="18" x2="12" y2="12"/>
+                                    <line x1="9" y1="15" x2="15" y2="15"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p id="sr-drop-label" style="margin: 0 0 3px; font-size: 13px; font-weight: 600; color: var(--sr-text);"><?php esc_html_e( 'Click to choose a file', 'simple-reset' ); ?></p>
+                                <p style="margin: 0; font-size: 11.5px; color: var(--sr-muted);"><?php esc_html_e( '.json files only', 'simple-reset' ); ?></p>
+                            </div>
+                            <input
+                                type="file"
+                                name="sr_import_file"
+                                id="sr_import_file"
+                                accept=".json,application/json"
+                                style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;"
+                                onchange="
+                                    var label = document.getElementById('sr-drop-label');
+                                    var zone  = document.getElementById('sr-drop-zone');
+                                    var btn   = document.getElementById('sr-import-btn');
+                                    if(this.files && this.files[0]){
+                                        label.textContent = this.files[0].name;
+                                        zone.style.borderColor = '#6366f1';
+                                        zone.style.background = '#eef2ff';
+                                        zone.classList.add('has-file');
+                                        btn.disabled = false;
+                                        btn.style.opacity = '1';
+                                        btn.style.cursor = 'pointer';
+                                    } else {
+                                        label.textContent = '<?php echo esc_js( __( 'Click to choose a file', 'simple-reset' ) ); ?>';
+                                        zone.style.borderColor = 'var(--sr-border)';
+                                        zone.style.background = 'var(--sr-bg)';
+                                        zone.classList.remove('has-file');
+                                        btn.disabled = true;
+                                        btn.style.opacity = '0.45';
+                                        btn.style.cursor = 'not-allowed';
+                                    }
+                                "
+                            >
+                        </label>
+
+                        <button
+                            type="submit"
+                            id="sr-import-btn"
+                            disabled
+                            style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 20px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: #fff; border: none; border-radius: var(--sr-radius-sm); font-size: 13.5px; font-weight: 600; cursor: not-allowed; transition: all var(--sr-transition); box-shadow: 0 2px 8px rgba(99,102,241,.3); opacity: 0.45;"
+                            onmouseover="if(!this.disabled){ this.style.opacity='0.9'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 16px rgba(99,102,241,.45)'; }"
+                            onmouseout="if(!this.disabled){ this.style.opacity='1'; this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(99,102,241,.3)'; }"
+                        >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <?php esc_html_e( 'Import Settings File', 'simple-reset' ); ?>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 
 </div>
+

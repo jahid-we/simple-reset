@@ -149,7 +149,7 @@ class Settings {
             }
         }
 
-        wp_safe_redirect( admin_url( 'admin.php?page=simple-reset-settings&tab=reset_tools&sr_import_success=1' ) );
+        wp_safe_redirect( admin_url( 'admin.php?page=sr-settings&sr_import_success=1' ) );
         exit;
     }
 
