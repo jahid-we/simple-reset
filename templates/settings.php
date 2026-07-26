@@ -208,8 +208,9 @@ $sr_warning_message    = get_option( 'sr_warning_message', '' );
                         <p style="margin: 0; font-size: 12.5px; color: var(--sr-muted); line-height: 1.5;">
                             <?php esc_html_e( 'Select a valid Simple Reset settings JSON file to restore plugin configuration options.', 'simple-reset' ); ?>
                         </p>
-                        <form method="post" action="" enctype="multipart/form-data" style="margin-top: 8px; display: flex; flex-direction: column; gap: 12px;">
+                        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" style="margin-top: 8px; display: flex; flex-direction: column; gap: 12px;">
                             <?php wp_nonce_field( 'sr_import_settings', 'sr_import_settings_nonce' ); ?>
+                            <input type="hidden" name="action" value="sr_import_settings">
                             <div style="display: flex; flex-direction: column; gap: 6px;">
                                 <label for="sr_import_file" style="font-size: 12.5px; font-weight: 600; color: var(--sr-text);">
                                     <?php esc_html_e( 'Choose JSON File', 'simple-reset' ); ?>

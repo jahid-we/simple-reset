@@ -16,6 +16,10 @@ class Settings {
             'admin_post_sr_export_settings',
             [ $this, 'handle_export' ]
         );
+        add_action(
+            'admin_post_sr_import_settings',
+            [ $this, 'handle_import' ]
+        );
     }
 
     public function register_settings() {
@@ -108,6 +112,44 @@ class Settings {
         header( 'Pragma: public' );
 
         echo wp_json_encode( $options, JSON_PRETTY_PRINT );
+        exit;
+    }
+
+    public function handle_import() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( 'You do not have sufficient permissions to perform this action.' );
+        }
+
+        if ( ! isset( $_POST['sr_import_settings_nonce'] ) || ! wp_verify_nonce( $_POST['sr_import_settings_nonce'], 'sr_import_settings' ) ) {
+            wp_die( 'Security check failed.' );
+        }
+
+        if ( empty( $_FILES['sr_import_file']['tmp_name'] ) ) {
+            wp_die( 'No file uploaded.' );
+        }
+
+        $file_content = file_get_contents( $_FILES['sr_import_file']['tmp_name'] );
+        $options      = json_decode( $file_content, true );
+
+        if ( ! is_array( $options ) ) {
+            wp_die( 'Invalid JSON file.' );
+        }
+
+        $allowed_options = [
+            'sr_enable_reset',
+            'sr_require_backup',
+            'sr_email_alert',
+            'sr_allowed_user_ids',
+            'sr_warning_message',
+        ];
+
+        foreach ( $options as $key => $value ) {
+            if ( in_array( $key, $allowed_options ) ) {
+                update_option( $key, $value );
+            }
+        }
+
+        wp_safe_redirect( admin_url( 'admin.php?page=simple-reset-settings&tab=reset_tools&sr_import_success=1' ) );
         exit;
     }
 
