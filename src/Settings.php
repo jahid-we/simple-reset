@@ -12,6 +12,10 @@ class Settings {
             'admin_init',
             [ $this, 'register_settings' ]
         );
+        add_action(
+            'admin_post_sr_export_settings',
+            [ $this, 'handle_export' ]
+        );
     }
 
     public function register_settings() {
@@ -69,6 +73,42 @@ class Settings {
                 'default'           => '',
             ]
         );
+    }
+
+    public function handle_export() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( 'You do not have sufficient permissions to perform this action.' );
+        }
+
+        if ( ! isset( $_POST['sr_export_settings_nonce'] ) || ! wp_verify_nonce( $_POST['sr_export_settings_nonce'], 'sr_export_settings' ) ) {
+            wp_die( 'Security check failed.' );
+        }
+
+        $allowed_options = [
+            'sr_enable_reset',
+            'sr_require_backup',
+            'sr_email_alert',
+            'sr_allowed_user_ids',
+            'sr_warning_message',
+        ];
+
+        $options = [];
+
+        foreach ( $allowed_options as $option ) {
+            $options[ $option ] = get_option( $option, '' );
+    }
+
+        $file_name = 'simple-reset-config-' . date( 'Ymd_His' ) . '.json';
+
+        header( 'Content-Description: File Transfer' );
+        header( 'Content-Disposition: attachment; filename="' . $file_name . '"' );
+        header( 'Content-Type: application/json; charset=utf-8' );
+        header( 'Expires: 0' );
+        header( 'Cache-Control: must-revalidate' );
+        header( 'Pragma: public' );
+
+        echo wp_json_encode( $options, JSON_PRETTY_PRINT );
+        exit;
     }
 
 }

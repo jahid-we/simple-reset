@@ -159,4 +159,90 @@ $sr_warning_message    = get_option( 'sr_warning_message', '' );
 
     </form>
 
+    <!-- Export & Import Settings Section -->
+    <div style="margin-top: 32px;">
+        <div class="sr-dash-card">
+            <div class="sr-dash-card__header">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <?php esc_html_e( 'Export & Import Settings', 'simple-reset' ); ?>
+            </div>
+            <div class="sr-dash-card__body" style="padding: 24px;">
+                <div class="sr-dash-lower">
+
+                    <!-- Export Settings Box -->
+                    <div style="display: flex; flex-direction: column; gap: 12px; border-right: 1px solid var(--sr-border); padding-right: 24px;">
+                        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: var(--sr-text);">
+                            <?php esc_html_e( 'Export Settings', 'simple-reset' ); ?>
+                        </h3>
+                        <p style="margin: 0; font-size: 12.5px; color: var(--sr-muted); line-height: 1.5;">
+                            <?php esc_html_e( 'Export all plugin configuration options to a JSON file for backup or migration.', 'simple-reset' ); ?>
+                        </p>
+                        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin-top: 8px;">
+                            <?php wp_nonce_field( 'sr_export_settings', 'sr_export_settings_nonce' ); ?>
+                            <input type="hidden" name="action" value="sr_export_settings">
+                            <button
+                                type="submit"
+                                name="sr_export_settings"
+                                class="sr-btn"
+                                style="width: auto; padding: 9px 20px; background: var(--sr-surface); color: var(--sr-text); border: 1px solid var(--sr-border); border-radius: var(--sr-radius-sm); font-size: 13.5px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background var(--sr-transition);"
+                            >
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                <?php esc_html_e( 'Export Settings', 'simple-reset' ); ?>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Import Settings Box -->
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: var(--sr-text);">
+                            <?php esc_html_e( 'Import Settings', 'simple-reset' ); ?>
+                        </h3>
+                        <p style="margin: 0; font-size: 12.5px; color: var(--sr-muted); line-height: 1.5;">
+                            <?php esc_html_e( 'Select a valid Simple Reset settings JSON file to restore plugin configuration options.', 'simple-reset' ); ?>
+                        </p>
+                        <form method="post" action="" enctype="multipart/form-data" style="margin-top: 8px; display: flex; flex-direction: column; gap: 12px;">
+                            <?php wp_nonce_field( 'sr_import_settings', 'sr_import_settings_nonce' ); ?>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label for="sr_import_file" style="font-size: 12.5px; font-weight: 600; color: var(--sr-text);">
+                                    <?php esc_html_e( 'Choose JSON File', 'simple-reset' ); ?>
+                                </label>
+                                <input
+                                    type="file"
+                                    name="sr_import_file"
+                                    id="sr_import_file"
+                                    accept=".json,application/json"
+                                    style="font-size: 13px; color: var(--sr-text);"
+                                >
+                            </div>
+                            <div>
+                                <button
+                                    type="submit"
+                                    name="sr_import_settings"
+                                    class="sr-btn"
+                                    style="width: auto; padding: 9px 20px; background: var(--sr-surface); color: var(--sr-text); border: 1px solid var(--sr-border); border-radius: var(--sr-radius-sm); font-size: 13.5px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background var(--sr-transition);"
+                                >
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    <?php esc_html_e( 'Import Settings', 'simple-reset' ); ?>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
