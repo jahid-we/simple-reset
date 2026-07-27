@@ -90,4 +90,13 @@ public function get_theme_mod_count() {
 
 }
 
+public function get_wc_post_type_count( string $post_type ) {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        return 0;
+    }
+
+    return $this->get_post_type_count( $post_type );
+}
+
 }

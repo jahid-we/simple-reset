@@ -66,6 +66,7 @@ class Reset {
 			'sr_delete_page_auto-draft',
 			'sr_delete_trashed',
 			'sr_reset_theme_customizer',
+			'sr_delete_wc_products',
 		];
 
 		$custom_post_types = self::get_custom_post_types();
@@ -176,6 +177,22 @@ class Reset {
 				$this->delete_post_type( $post_type, 'any', $action, 'sr-custom-post-types' );
 			}
 		}
+
+		// DELETE ALL WOOCOMMERCE PRODUCTS
+		if ( isset( $_POST['sr_delete_wc_products'] ) ) {
+
+    		$this->verify_request(
+        		'sr_delete_wc_products',
+        		'sr_delete_wc_products_nonce'
+    		);
+
+    		$this->delete_wc_post_type(
+        		'product',
+        		'sr_delete_wc_products',
+        		'products'
+    		);
+		}
+
 	}
 
 	// NONCE & PERMISSION VERIFICATION
@@ -382,6 +399,37 @@ class Reset {
 		$this->redirect( $action_name );
 	}
 
+	// RESET ALL WOOCOMMERCE PRODUCTS
+	private function delete_wc_post_type(
+	string $post_type,
+	string $action_name,
+	string $label
+) {
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		wp_die( 'WooCommerce is not active.' );
+	}
+
+	$posts = get_posts(
+		[
+			'post_type'      => $post_type,
+			'post_status'    => 'any',
+			'posts_per_page' => -1,
+		]
+	);
+
+	foreach ( $posts as $post ) {
+		wp_delete_post( $post->ID, true );
+	}
+
+	Log::add(
+		$action_name,
+		sprintf( 'Deleted %d WooCommerce %s.', $count, $label )
+	);
+
+	$this->redirect( $action_name, 'sr-reset-tools' );
+}
+
 	private function redirect( string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
 		// Send Email Alert if enabled
 		if ( get_option( 'sr_email_alert', '0' ) === '1' ) {
@@ -403,6 +451,7 @@ class Reset {
 				'sr_delete_page_auto-draft' => 'Page Auto Drafts',
 				'sr_delete_trashed'         => 'Trashed Items',
 				'sr_reset_theme_customizer' => 'Theme Customizer',
+				'sr_delete_wc_products'     => 'All WooCommerce Products',
 			];
 
 			$human_action = isset( $action_labels[ $action_name ] ) ? $action_labels[ $action_name ] : $action_name;

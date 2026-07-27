@@ -44,6 +44,7 @@ $post_auto_draft_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="no
 $page_auto_draft_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polygon points="2 17 12 22 22 17"/><polygon points="2 12 12 17 22 12"/></svg>';
 $trashed_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
 $customizer_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+$wc_products_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V4H2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V9"/><path d="M16 9V4h4v5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9"/><path d="M10 15h4"/><path d="M4 20h16"/><path d="M10 12h4"/><path d="M10 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/><path d="M14 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/></svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -379,6 +380,35 @@ $customizer_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" s
         include SR_PATH . 'templates/parts/reset-card.php';
         ?>
 
+        <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+            <?php
+        $card = [
+            'type'          => 'wc-products',
+            'badge'         => 'WooCommerce Products',
+            'title'         => 'Delete All WooCommerce Products',
+            'description'   => "Delete all WooCommerce products from your WordPress site.",
+            'count'         => $counts['wc_products'],
+            'singular'      => 'product',
+            'plural'        => 'products',
+            'icon'          => $wc_products_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--blue',
+            'counter_class' => 'sr-card__counter--blue',
+            'action'        => 'sr_delete_wc_products',
+            'nonce'         => 'sr_delete_wc_products',
+            'button_text'   => 'Delete All WooCommerce Products',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+        <?php else : ?>
+            <div class="sr-notice sr-notice-info">
+                <strong>WooCommerce not detected.</strong><br>
+                Install and activate WooCommerce to access these cleanup tools.
+            </div>
+
+        <?php endif; ?>
     </div><!-- .sr-grid -->
 
 </div><!-- .sr-page-wrap -->
