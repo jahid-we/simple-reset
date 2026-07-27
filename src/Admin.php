@@ -103,6 +103,7 @@ class Admin {
             'trashed' => $statistics->get_trash_count(),
             'theme_mods' => $statistics->get_theme_mod_count(),
             'wc_products' => $statistics->get_wc_post_type_count( 'product' ),
+            'wc_coupons' => $statistics->get_wc_post_type_count( 'shop_coupon' ),
         ];
 
         require_once SR_PATH . 'templates/dashboard.php';
@@ -128,6 +129,7 @@ class Admin {
         'trashed' => $statistics->get_trash_count(),
         'theme_mods' => $statistics->get_theme_mod_count(),
         'wc_products' => $statistics->get_wc_post_type_count( 'product' ),
+        'wc_coupons' => $statistics->get_wc_post_type_count( 'shop_coupon' ),
 
     ];
         require_once SR_PATH . "templates/reset-tools.php";

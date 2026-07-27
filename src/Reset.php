@@ -67,6 +67,7 @@ class Reset {
 			'sr_delete_trashed',
 			'sr_reset_theme_customizer',
 			'sr_delete_wc_products',
+			'sr_delete_wc_coupons',
 		];
 
 		$custom_post_types = self::get_custom_post_types();
@@ -190,6 +191,20 @@ class Reset {
         		'product',
         		'sr_delete_wc_products',
         		'products'
+    		);
+		}
+		// DELETE ALL WOOCOMMERCE COUPONS
+		if ( isset( $_POST['sr_delete_wc_coupons'] ) ) {
+			
+    		$this->verify_request(
+        		'sr_delete_wc_coupons',
+        		'sr_delete_wc_coupons_nonce'
+    		);
+
+    		$this->delete_wc_post_type(
+        		'shop_coupon',
+        		'sr_delete_wc_coupons',
+        		'coupons'
     		);
 		}
 
@@ -401,10 +416,10 @@ class Reset {
 
 	// RESET ALL WOOCOMMERCE PRODUCTS
 	private function delete_wc_post_type(
-	string $post_type,
-	string $action_name,
-	string $label
-) {
+		string $post_type,
+		string $action_name,
+		string $label
+	) {
 
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		wp_die( 'WooCommerce is not active.' );
