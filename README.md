@@ -1,28 +1,73 @@
 # Simple Reset
 
-A lightweight and secure WordPress plugin to quickly clean your website by deleting posts, pages, media, comments, users, categories, tags, and more.
+A modern, lightweight, and secure WordPress plugin for safely cleaning your website by deleting posts, pages, media, comments, users, WooCommerce data, and other WordPress content with built-in protection, activity logging, and confirmation safeguards.
 
 ---
 
 ## ✨ Features
 
+### Content Cleanup
+
 - 📝 Delete All Posts
 - 📄 Delete All Pages
 - 🖼️ Delete All Media
 - 💬 Delete All Comments
-- 📂 Delete All Categories _(Default category is preserved)_
+- 📂 Delete All Categories (Default category protected)
 - 🏷️ Delete All Tags
-- 👤 Delete All Users _(Current administrator is protected)_
-- 📊 Live Dashboard Statistics
+- 👤 Delete All Users (Current user & administrators protected)
+- 🗑️ Empty Trash
+- 📝 Delete Post Revisions
+- 📋 Delete Auto Drafts
+- 🎨 Reset Theme Customizer
+
+### Custom Post Types
+
+- 📦 Delete Custom Post Types
+- 🛡️ Automatically protects the active Elementor Site Kit
+
+### WooCommerce
+
+- 🛒 Delete WooCommerce Products
+- 🎟️ Delete WooCommerce Coupons
+
+### Dashboard
+
+- 📊 Live Statistics Dashboard
+- 📈 WordPress Content Overview
+- 💻 System Information
+
+### Security
+
+- 🔒 Nonce Verification
+- 👮 Capability Checks
+- 🔐 Restrict access by User ID
+- 💾 Optional Backup Confirmation
+- 📧 Email Notifications
 - ⚠️ Confirmation Modal before destructive actions
-- 🔒 Nonce Verification & Permission Checks
-- 🎨 Modern & Clean WordPress Admin UI
+
+### Activity Logs
+
+- 📝 Complete Activity Logging
+- 🌐 Stores User, IP Address, Timestamp & Action
+- 📋 One-click Copy Raw Logs
+- 🗃️ Dedicated Database Log Table
+
+### Settings
+
+- ⚙️ Global Reset Enable / Disable
+- 👤 Allowed User IDs
+- 💾 Backup Confirmation Requirement
+- 📧 Email Alert Settings
+- ⚠️ Custom Warning Message
+
+### Import / Export
+
+- 📤 Export Plugin Settings (.json)
+- 📥 Import Plugin Settings (.json)
 
 ---
 
 ## 📸 Screenshots
-
-> Add your screenshots here.
 
 | Dashboard                          | Reset Tools                            |
 | ---------------------------------- | -------------------------------------- |
@@ -39,7 +84,7 @@ A lightweight and secure WordPress plugin to quickly clean your website by delet
 wp-content/plugins/
 ```
 
-3. Activate **Simple Reset** from the Plugins page.
+3. Activate **Simple Reset** from the Plugins screen.
 4. Navigate to:
 
 ```
@@ -50,18 +95,20 @@ Dashboard → Reset
 
 ## ⚠️ Important
 
-This plugin permanently deletes content.
+Simple Reset performs **permanent deletion** of WordPress content.
 
-Always create a backup before performing any reset operation.
+Always create a complete backup before executing any cleanup operation.
 
-The following items are protected:
+### Protected Items
 
 - Current logged-in administrator
+- Administrator accounts
 - Default WordPress category
+- Active Elementor Site Kit
 
 ---
 
-## 🛠️ Requirements
+## 🛠 Requirements
 
 | Requirement | Version |
 | ----------- | ------- |
@@ -70,32 +117,60 @@ The following items are protected:
 
 ---
 
-## 📋 Current Features
+## 📂 Plugin Structure
 
-- Delete Posts
-- Delete Pages
-- Delete Media
-- Delete Comments
-- Delete Categories
-- Delete Tags
-- Delete Users
-- Dashboard Statistics
-- Confirmation Modal
+```
+simple-reset/
+├── src/
+│   ├── Admin.php
+│   ├── Assets.php
+│   ├── Log.php
+│   ├── Plugin.php
+│   ├── Reset.php
+│   ├── Settings.php
+│   └── Statistics.php
+│
+├── templates/
+│   ├── dashboard.php
+│   ├── reset-tools.php
+│   ├── custom-post-types.php
+│   ├── settings.php
+│   ├── logs.php
+│   └── parts/
+│
+├── vendor/
+├── composer.json
+└── simple-reset.php
+```
+
+---
+
+## 🔒 Security Features
+
+- WordPress Nonce Verification
+- Capability Validation
+- Input Sanitization & Escaping
+- Protected Administrator Accounts
+- Protected Default Category
+- Protected Active Elementor Kit
+- Backup Confirmation Option
+- User ID Restriction
+- Activity Logging
 
 ---
 
 ## 🚧 Roadmap
 
-Upcoming features:
+Planned features for future releases:
 
-- Delete Menus
-- Delete Widgets
-- Delete Custom Post Types
-- Delete WooCommerce Products
-- Reset WordPress Options
+- Delete WooCommerce Orders
+- Delete WooCommerce Customers
+- Delete WooCommerce Product Categories
+- Delete WooCommerce Product Tags
 - Database Optimization
-- Reset Logs
-- One-Click Full Site Reset
+- Reset Widgets
+- Full Site Reset
+- Scheduled Cleanup
 - Multisite Support
 
 ---
@@ -110,7 +185,7 @@ GitHub: https://github.com/jahid-we
 
 ## 📄 License
 
-This project is licensed under the GPL v2 or later License.
+Licensed under the **GPL v2 or later**.
 
 See the LICENSE file for details.
 
@@ -118,4 +193,4 @@ See the LICENSE file for details.
 
 ## ⭐ Support
 
-If you like this project, consider giving it a ⭐ on GitHub.
+If you find this project useful, please consider giving it a ⭐ on GitHub.
