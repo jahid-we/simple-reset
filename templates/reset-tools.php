@@ -51,6 +51,29 @@ $wc_coupons_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" s
     <circle cx="9" cy="9" r="1"/>
     <circle cx="15" cy="15" r="1"/>
 </svg>';
+$wc_product_categories_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+    <rect x="8" y="11" width="3" height="3"/>
+    <rect x="13" y="11" width="3" height="3"/>
+</svg>';
+$wc_product_tags_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+    <circle cx="7" cy="7" r="1"/>
+    <rect x="12" y="8" width="3" height="3"/>
+    <rect x="16" y="12" width="3" height="3"/>
+</svg>';
+$wc_product_attribute_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 6a6 6 0 0 1 0 12"/>
+        <path d="M9 18a6 6 0 0 1 0-12"/>
+        <path d="M9 18c-1 1-2 2-4 2"/>
+        <path d="M15 18c1 1 2 2 4 2"/>
+        <path d="M9 6c-1-1-2-2-4-2"/>
+        <path d="M15 6c1-1 2-2 4-2"/>
+        <line x1="4" y1="16" x2="4" y2="20"/>
+        <line x1="8" y1="20" x2="8" y2="16"/>
+        <line x1="20" y1="16" x2="20" y2="20"/>
+        <line x1="16" y1="20" x2="16" y2="16"/>
+    </svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -402,7 +425,7 @@ $wc_coupons_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" s
             'counter_class' => 'sr-card__counter--blue',
             'action'        => 'sr_delete_wc_products',
             'nonce'         => 'sr_delete_wc_products',
-            'button_text'   => 'Delete All WooCommerce Products',
+            'button_text'   => 'Delete All Products',
             'note'          => '',
             'hidden_fields' => [],
         ];
@@ -411,7 +434,7 @@ $wc_coupons_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" s
             <?php
         $card = [
             'type'          => 'wc-coupons',
-            'badge'         => 'WooCommerce Coupons',
+            'badge'         => 'Coupons',
             'title'         => 'Delete All WooCommerce Coupons',
             'description'   => "Delete all WooCommerce coupons from your WordPress site.",
             'count'         => $counts['wc_coupons'],
@@ -423,7 +446,70 @@ $wc_coupons_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" s
             'counter_class' => 'sr-card__counter--blue',
             'action'        => 'sr_delete_wc_coupons',
             'nonce'         => 'sr_delete_wc_coupons',
-            'button_text'   => 'Delete All WooCommerce Coupons',
+            'button_text'   => 'Delete All Coupons',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+            <?php
+        $card = [
+            'type'          => 'wc-product-categories',
+            'badge'         => 'Product Categories',
+            'title'         => 'Delete All WooCommerce Product Categories',
+            'description'   => "Delete all WooCommerce product categories from your WordPress site.",
+            'count'         => $counts['wc_product_categories'],
+            'singular'      => 'product category',
+            'plural'        => 'product categories',
+            'icon'          => $wc_product_categories_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--blue',
+            'counter_class' => 'sr-card__counter--blue',
+            'action'        => 'sr_delete_wc_product_categories',
+            'nonce'         => 'sr_delete_wc_product_categories',
+            'button_text'   => 'Delete All Product Categories',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+            <?php
+        $card = [
+            'type'          => 'wc-product-tags',
+            'badge'         => 'Product Tags',
+            'title'         => 'Delete All WooCommerce Product Tags',
+            'description'   => "Delete all WooCommerce product tags from your WordPress site.",
+            'count'         => $counts['wc_product_tags'],
+            'singular'      => 'product tag',
+            'plural'        => 'product tags',
+            'icon'          => $wc_product_tags_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--blue',
+            'counter_class' => 'sr-card__counter--blue',
+            'action'        => 'sr_delete_wc_product_tags',
+            'nonce'         => 'sr_delete_wc_product_tags',
+            'button_text'   => 'Delete All Product Tags',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+            <?php
+        $card = [
+            'type'          => 'wc-product-attribute',
+            'badge'         => 'Product Attribute',
+            'title'         => 'Delete All WooCommerce Product Attribute',
+            'description'   => "Delete all WooCommerce product attributes from your WordPress site.",
+            'count'         => $counts['wc_product_attribute'],
+            'singular'      => 'product attribute',
+            'plural'        => 'product attributes',
+            'icon'          => $wc_product_attribute_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--blue',
+            'counter_class' => 'sr-card__counter--blue',
+            'action'        => 'sr_delete_wc_product_attribute',
+            'nonce'         => 'sr_delete_wc_product_attribute',
+            'button_text'   => 'Delete All Product Attribute',
             'note'          => '',
             'hidden_fields' => [],
         ];

@@ -99,4 +99,24 @@ public function get_wc_post_type_count( string $post_type ) {
     return $this->get_post_type_count( $post_type );
 }
 
+public function get_wc_taxonomy_count($taxonomy) {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        return 0;
+    }
+
+    return $this->get_taxonomy_count($taxonomy);
+}
+public function get_wc_attribute_count() {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        return 0;
+    }
+
+    $attributes = wc_get_attribute_taxonomies();
+
+    return count( $attributes );
+
+}
+
 }

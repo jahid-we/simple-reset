@@ -104,6 +104,9 @@ class Admin {
             'theme_mods' => $statistics->get_theme_mod_count(),
             'wc_products' => $statistics->get_wc_post_type_count( 'product' ),
             'wc_coupons' => $statistics->get_wc_post_type_count( 'shop_coupon' ),
+            'wc_product_categories' => $statistics->get_wc_taxonomy_count('product_cat'),
+            'wc_product_tags' => $statistics->get_wc_taxonomy_count('product_tag'),
+            'wc_product_attribute' => $statistics->get_wc_attribute_count(),
         ];
 
         require_once SR_PATH . 'templates/dashboard.php';
@@ -130,6 +133,9 @@ class Admin {
         'theme_mods' => $statistics->get_theme_mod_count(),
         'wc_products' => $statistics->get_wc_post_type_count( 'product' ),
         'wc_coupons' => $statistics->get_wc_post_type_count( 'shop_coupon' ),
+        'wc_product_categories' => $statistics->get_wc_taxonomy_count('product_cat'),
+        'wc_product_tags' => $statistics->get_wc_taxonomy_count('product_tag'),
+        'wc_product_attribute' => $statistics->get_wc_attribute_count(),
 
     ];
         require_once SR_PATH . "templates/reset-tools.php";

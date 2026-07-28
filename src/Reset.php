@@ -68,6 +68,9 @@ class Reset {
 			'sr_reset_theme_customizer',
 			'sr_delete_wc_products',
 			'sr_delete_wc_coupons',
+			'sr_delete_wc_product_categories',
+			'sr_delete_wc_product_tags',
+			'sr_delete_wc_product_attribute',
 		];
 
 		$custom_post_types = self::get_custom_post_types();
@@ -205,6 +208,51 @@ class Reset {
         		'shop_coupon',
         		'sr_delete_wc_coupons',
         		'coupons'
+    		);
+		}
+
+		// DELETE WOOCOMMERCE TAXONOMIES
+		$wc_taxonomies = [
+    		'sr_delete_wc_product_categories' => [
+				'taxonomy' => 'product_cat',
+				'label'    => 'product categories',
+    		],
+    		'sr_delete_wc_product_tags' => [
+				'taxonomy' => 'product_tag',
+        		'label'    => 'product tags',
+    		],
+		];
+
+		foreach ( $wc_taxonomies as $action => $data ) {
+
+    		if ( ! isset( $_POST[ $action ] ) ) {
+        		continue;
+    }
+
+    	$this->verify_request(
+        $action,
+        $action . '_nonce'
+    );
+
+    	$this->delete_wc_taxonomy(
+        $data['taxonomy'],
+        $action,
+        $data['label']
+    );
+	}
+
+
+	if ( isset( $_POST['sr_delete_wc_product_attribute'] ) ) {
+
+    		$this->verify_request(
+        		'sr_delete_wc_product_attribute',
+        		'sr_delete_wc_product_attribute_nonce'
+    		);
+
+    		$this->delete_wc_attributes(
+        		'product_attribute',
+        		'sr_delete_wc_product_attribute',
+        		'product attributes'
     		);
 		}
 
@@ -432,9 +480,10 @@ class Reset {
 			'posts_per_page' => -1,
 		]
 	);
-
+	$count = 0;
 	foreach ( $posts as $post ) {
 		wp_delete_post( $post->ID, true );
+		$count++;
 	}
 
 	Log::add(
@@ -443,6 +492,96 @@ class Reset {
 	);
 
 	$this->redirect( $action_name, 'sr-reset-tools' );
+}
+
+// RESET ALL WOOCOMMERCE Taxonomy
+private function delete_wc_taxonomy(
+    string $taxonomy,
+    string $action_name,
+    string $label
+) {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        wp_die( 'WooCommerce is not active.' );
+    }
+
+    $terms = get_terms(
+        [
+            'taxonomy'   => $taxonomy,
+            'hide_empty' => false,
+            'number'     => 999999,
+        ]
+    );
+
+    foreach ( $terms as $term ) {
+        wp_delete_term( $term->term_id, $taxonomy );
+    }
+
+    Log::add(
+        $action_name,
+        sprintf( 'Deleted %d WooCommerce %s.', count( $terms ), $label )
+    );
+
+    $this->redirect( $action_name, 'sr-reset-tools' );
+}
+
+private function delete_wc_attributes() {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        wp_die( 'WooCommerce is not active.' );
+    }
+
+    $attributes = wc_get_attribute_taxonomies();
+
+    $deleted_attributes = 0;
+    $deleted_terms      = 0;
+
+    foreach ( $attributes as $attribute ) {
+
+        // pa_color
+        // pa_size
+        $taxonomy = wc_attribute_taxonomy_name(
+            $attribute->attribute_name
+        );
+
+        $terms = get_terms(
+            [
+                'taxonomy'   => $taxonomy,
+                'hide_empty' => false,
+            ]
+        );
+
+        if ( is_wp_error( $terms ) ) {
+            continue;
+        }
+
+        foreach ( $terms as $term ) {
+
+            if ( wp_delete_term( $term->term_id, $taxonomy ) ) {
+                $deleted_terms++;
+            }
+
+        }
+
+        if ( wc_delete_attribute( $attribute->attribute_id ) ) {
+            $deleted_attributes++;
+        }
+
+    }
+
+    Log::add(
+        'sr_delete_wc_product_attributes',
+        sprintf(
+            'Deleted %d attributes and %d attribute terms.',
+            $deleted_attributes,
+            $deleted_terms
+        )
+    );
+
+    $this->redirect(
+        'sr_delete_wc_product_attributes',
+        'sr-reset-tools'
+    );
 }
 
 	private function redirect( string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
