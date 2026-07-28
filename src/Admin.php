@@ -107,6 +107,7 @@ class Admin {
             'wc_product_categories' => $statistics->get_wc_taxonomy_count('product_cat'),
             'wc_product_tags' => $statistics->get_wc_taxonomy_count('product_tag'),
             'wc_product_attribute' => $statistics->get_wc_attribute_count(),
+            'wc_orders' => $statistics->get_wc_order_count(),
         ];
 
         require_once SR_PATH . 'templates/dashboard.php';
@@ -136,6 +137,7 @@ class Admin {
         'wc_product_categories' => $statistics->get_wc_taxonomy_count('product_cat'),
         'wc_product_tags' => $statistics->get_wc_taxonomy_count('product_tag'),
         'wc_product_attribute' => $statistics->get_wc_attribute_count(),
+        'wc_orders' => $statistics->get_wc_order_count(),
 
     ];
         require_once SR_PATH . "templates/reset-tools.php";

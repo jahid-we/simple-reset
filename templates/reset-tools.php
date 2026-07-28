@@ -74,6 +74,13 @@ $wc_product_attribute_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fil
         <line x1="20" y1="16" x2="20" y2="20"/>
         <line x1="16" y1="20" x2="16" y2="16"/>
     </svg>';
+
+$wc_orders_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+    <polyline points="13 2 13 9 20 9"/>
+    <circle cx="12" cy="14" r="2"/>
+    <path d="M12 18h.01"/>
+</svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -510,6 +517,27 @@ $wc_product_attribute_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fil
             'action'        => 'sr_delete_wc_product_attribute',
             'nonce'         => 'sr_delete_wc_product_attribute',
             'button_text'   => 'Delete All Product Attribute',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+            <?php
+        $card = [
+            'type'          => 'wc-orders',
+            'badge'         => 'Orders',
+            'title'         => 'Delete All WooCommerce Orders',
+            'description'   => "Delete all WooCommerce orders from your WordPress site.",
+            'count'         => $counts['wc_orders'],
+            'singular'      => 'order',
+            'plural'        => 'orders',
+            'icon'          => $wc_orders_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--blue',
+            'counter_class' => 'sr-card__counter--blue',
+            'action'        => 'sr_delete_wc_orders',
+            'nonce'         => 'sr_delete_wc_orders',
+            'button_text'   => 'Delete All Orders',
             'note'          => '',
             'hidden_fields' => [],
         ];

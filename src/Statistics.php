@@ -119,4 +119,20 @@ public function get_wc_attribute_count() {
 
 }
 
+public function get_wc_order_count() {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        return 0;
+    }
+
+    return count(
+        wc_get_orders(
+            [
+                'limit'  => -1,
+                'return' => 'ids',
+            ]
+        )
+    );
+}
+
 }

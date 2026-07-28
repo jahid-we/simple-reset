@@ -71,6 +71,7 @@ class Reset {
 			'sr_delete_wc_product_categories',
 			'sr_delete_wc_product_tags',
 			'sr_delete_wc_product_attribute',
+			'sr_delete_wc_orders',
 		];
 
 		$custom_post_types = self::get_custom_post_types();
@@ -241,12 +242,12 @@ class Reset {
     );
 	}
 
-
-	if ( isset( $_POST['sr_delete_wc_product_attribute'] ) ) {
+	// DELETE WOOCOMMERCE PRODUCT ATTRIBUTES
+	if ( isset( $_POST['sr_delete_wc_product_attributes'] ) ) {
 
     		$this->verify_request(
-        		'sr_delete_wc_product_attribute',
-        		'sr_delete_wc_product_attribute_nonce'
+        		'sr_delete_wc_product_attributes',
+        		'sr_delete_wc_product_attributes_nonce'
     		);
 
     		$this->delete_wc_attributes(
@@ -254,6 +255,16 @@ class Reset {
         		'sr_delete_wc_product_attribute',
         		'product attributes'
     		);
+		}
+	// DELETE WOOCOMMERCE ORDERS
+	if ( isset( $_POST['sr_delete_wc_orders'] ) ) {
+
+    		$this->verify_request(
+        		'sr_delete_wc_orders',
+        		'sr_delete_wc_orders_nonce'
+    		);
+
+    		$this->delete_wc_orders();
 		}
 
 	}
@@ -584,6 +595,41 @@ private function delete_wc_attributes() {
     );
 }
 
+// Delete WooCommerce Orders
+private function delete_wc_orders() {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        wp_die( 'WooCommerce is not active.' );
+    }
+
+    $orders = wc_get_orders(
+        [
+            'limit'  => -1,
+            'return' => 'ids',
+        ]
+    );
+
+    $count = 0;
+
+    foreach ( $orders as $order_id ) {
+
+        $order = wc_get_order( $order_id );
+
+        if ( $order ) {
+            $order->delete( true );
+            $count++;
+        }
+
+    }
+
+    Log::add(
+        'sr_delete_wc_orders',
+        sprintf( 'Deleted %d WooCommerce orders.', $count )
+    );
+
+    $this->redirect( 'sr_delete_wc_orders', 'sr-reset-tools' );
+}
+
 	private function redirect( string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
 		// Send Email Alert if enabled
 		if ( get_option( 'sr_email_alert', '0' ) === '1' ) {
@@ -606,6 +652,12 @@ private function delete_wc_attributes() {
 				'sr_delete_trashed'         => 'Trashed Items',
 				'sr_reset_theme_customizer' => 'Theme Customizer',
 				'sr_delete_wc_products'     => 'All WooCommerce Products',
+				'sr_delete_wc_coupons'      => 'All WooCommerce Coupons',
+				'sr_delete_wc_product_categories' => 'All WooCommerce Product Categories',
+				'sr_delete_wc_product_tags' => 'All WooCommerce Product Tags',
+				'sr_delete_wc_product_attribute' => 'All WooCommerce Product Attributes',
+				'sr_delete_wc_orders'     => 'All WooCommerce Orders',
+				
 			];
 
 			$human_action = isset( $action_labels[ $action_name ] ) ? $action_labels[ $action_name ] : $action_name;
