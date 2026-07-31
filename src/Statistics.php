@@ -134,5 +134,19 @@ public function get_wc_order_count() {
         )
     );
 }
+public function get_wc_customer_count() {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        return 0;
+    }
+
+    return count(
+        get_users(
+            [
+                'role' => 'customer',
+            ]
+        )
+    );
+}
 
 }

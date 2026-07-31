@@ -81,6 +81,10 @@ $wc_orders_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" st
     <circle cx="12" cy="14" r="2"/>
     <path d="M12 18h.01"/>
 </svg>';
+$wc_customers_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+    <circle cx="12" cy="7" r="4"/>
+</svg>';
 ?>
 
 <?php if ("1" === $deleted): ?>
@@ -514,9 +518,9 @@ $wc_orders_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" st
             'button_icon'   => $delete_svg,
             'icon_class'    => 'sr-card__icon--blue',
             'counter_class' => 'sr-card__counter--blue',
-            'action'        => 'sr_delete_wc_product_attribute',
-            'nonce'         => 'sr_delete_wc_product_attribute',
-            'button_text'   => 'Delete All Product Attribute',
+            'action'        => 'sr_delete_wc_product_attributes',
+            'nonce'         => 'sr_delete_wc_product_attributes',
+            'button_text'   => 'Delete All Product Attributes',
             'note'          => '',
             'hidden_fields' => [],
         ];
@@ -538,6 +542,27 @@ $wc_orders_svg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" st
             'action'        => 'sr_delete_wc_orders',
             'nonce'         => 'sr_delete_wc_orders',
             'button_text'   => 'Delete All Orders',
+            'note'          => '',
+            'hidden_fields' => [],
+        ];
+        include SR_PATH . 'templates/parts/reset-card.php';
+        ?>
+        <?php
+        $card = [
+            'type'          => 'wc-customers',
+            'badge'         => 'Customers',
+            'title'         => 'Delete All WooCommerce Customers',
+            'description'   => "Delete all WooCommerce customers from your WordPress site.",
+            'count'         => $counts['wc_customers'],
+            'singular'      => 'customer',
+            'plural'        => 'customers',
+            'icon'          => $wc_customers_svg,
+            'button_icon'   => $delete_svg,
+            'icon_class'    => 'sr-card__icon--blue',
+            'counter_class' => 'sr-card__counter--blue',
+            'action'        => 'sr_delete_wc_customers',
+            'nonce'         => 'sr_delete_wc_customers',
+            'button_text'   => 'Delete All Customers',
             'note'          => '',
             'hidden_fields' => [],
         ];

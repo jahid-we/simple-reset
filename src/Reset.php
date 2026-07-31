@@ -70,8 +70,9 @@ class Reset {
 			'sr_delete_wc_coupons',
 			'sr_delete_wc_product_categories',
 			'sr_delete_wc_product_tags',
-			'sr_delete_wc_product_attribute',
+			'sr_delete_wc_product_attributes',
 			'sr_delete_wc_orders',
+			'sr_delete_wc_customers'
 		];
 
 		$custom_post_types = self::get_custom_post_types();
@@ -252,7 +253,7 @@ class Reset {
 
     		$this->delete_wc_attributes(
         		'product_attribute',
-        		'sr_delete_wc_product_attribute',
+        		'sr_delete_wc_product_attributes',
         		'product attributes'
     		);
 		}
@@ -266,8 +267,19 @@ class Reset {
 
     		$this->delete_wc_orders();
 		}
+		// DELETE ALL WOOCOMMERCE CUSTOMERS
+		if ( isset( $_POST['sr_delete_wc_customers'] ) ) {
+
+    		$this->verify_request(
+        		'sr_delete_wc_customers',
+        		'sr_delete_wc_customers_nonce'
+    		);
+
+    		$this->delete_wc_customers();
+		}
 
 	}
+
 
 	// NONCE & PERMISSION VERIFICATION
 	private function verify_request( $action, $nonce_name ) {
@@ -536,7 +548,11 @@ private function delete_wc_taxonomy(
     $this->redirect( $action_name, 'sr-reset-tools' );
 }
 
-private function delete_wc_attributes() {
+private function delete_wc_attributes(
+    string $taxonomy_type = 'product_attribute',
+    string $action_name = 'sr_delete_wc_product_attributes',
+    string $label = 'product attributes'
+) {
 
     if ( ! class_exists( 'WooCommerce' ) ) {
         wp_die( 'WooCommerce is not active.' );
@@ -581,7 +597,7 @@ private function delete_wc_attributes() {
     }
 
     Log::add(
-        'sr_delete_wc_product_attributes',
+        $action_name,
         sprintf(
             'Deleted %d attributes and %d attribute terms.',
             $deleted_attributes,
@@ -590,7 +606,7 @@ private function delete_wc_attributes() {
     );
 
     $this->redirect(
-        'sr_delete_wc_product_attributes',
+        $action_name,
         'sr-reset-tools'
     );
 }
@@ -630,7 +646,36 @@ private function delete_wc_orders() {
     $this->redirect( 'sr_delete_wc_orders', 'sr-reset-tools' );
 }
 
-	private function redirect( string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
+// Delete WooCommerce Customers
+private function delete_wc_customers() {
+
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        wp_die( 'WooCommerce is not active.' );
+    }
+
+    // Get all customers (users with 'customer' role)
+    $users = get_users(
+        [
+            'role' => 'customer',
+        ]
+    );
+
+    $count = 0;
+
+    foreach ( $users as $user ) {
+        wp_delete_user( $user->ID);
+        $count++;
+    }
+
+    Log::add(
+        'sr_delete_wc_customers',
+        sprintf( 'Deleted %d WooCommerce customers.', $count )
+    );
+
+    $this->redirect( 'sr_delete_wc_customers', 'sr-reset-tools' );
+}
+
+private function redirect( string $action_name = '', string $redirect_page = 'sr-reset-tools' ) {
 		// Send Email Alert if enabled
 		if ( get_option( 'sr_email_alert', '0' ) === '1' ) {
 			$current_user = wp_get_current_user();
@@ -657,6 +702,7 @@ private function delete_wc_orders() {
 				'sr_delete_wc_product_tags' => 'All WooCommerce Product Tags',
 				'sr_delete_wc_product_attribute' => 'All WooCommerce Product Attributes',
 				'sr_delete_wc_orders'     => 'All WooCommerce Orders',
+				'sr_delete_wc_customers'     => 'All WooCommerce Customers',
 				
 			];
 
